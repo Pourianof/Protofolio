@@ -9,87 +9,30 @@ class CrossWidgetDelegator {
 
 class CreditCardsList extends StatelessWidget {
   static const creditsSpaces = 10.0;
-  final CrossWidgetDelegator? crossWidget;
-  CreditCardsList({super.key, this.crossWidget});
-
-  _mayCardProvider(width) {
-    return [
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          CreditCard(
-            width: width / 2 - creditsSpaces,
-            isActive: true,
-          ),
-          CreditCard(
-            width: width / 2 - creditsSpaces,
-          ),
-        ],
-      ),
-    ];
-  }
-
-  final List<Widget> labels = [
-    const Text("کارت های من"),
-    const Text("دیدن همه"),
-  ];
+  const CreditCardsList({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, cnst) {
-        final creditCardwidth = cnst.maxWidth * 65 / 100;
-
-        final size =
-            CreditCard.calculateCardSize(creditCardwidth / 2 - creditsSpaces);
-
-        const space = SizedBox(
-          height: 10,
-        );
-
-        final List<Widget> mainRowChildren = [
-          SizedBox(
-            width: creditCardwidth,
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: labels,
-                ),
-                space,
-                ..._mayCardProvider(creditCardwidth),
-              ],
-            ),
+    return const Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Flexible(
+          flex: 50,
+          fit: FlexFit.tight,
+          child: CreditCard(
+            isActive: true,
           ),
-        ];
-
-        if (crossWidget != null) {
-          mainRowChildren.addAll([
-            const SizedBox(
-              width: 20,
-            ),
-            Expanded(
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [...crossWidget!.labels],
-                  ),
-                  space,
-                  SizedBox(
-                    height: size.height,
-                    child: crossWidget!.box,
-                  ),
-                ],
-              ),
-            ),
-          ]);
-        }
-
-        return Row(
-          children: mainRowChildren,
-        );
-      },
+        ),
+        SizedBox(
+          width: 20,
+        ),
+        Flexible(
+          flex: 50,
+          fit: FlexFit.tight,
+          child: CreditCard(),
+        )
+      ],
     );
   }
 }

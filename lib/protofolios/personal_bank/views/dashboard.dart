@@ -1,114 +1,84 @@
 import 'package:flutter/material.dart';
 import 'package:my_portfolio/protofolios/personal_bank/widgets/credit_cards_list.dart';
-import '../../../utils/number_text.dart';
+import '../widgets/transaction_box.dart';
+import '../widgets/activity_bar_chart.dart';
+import '../widgets/expenses_statistics.dart';
+import '../widgets/quick_transfer_card.dart';
+import '../widgets/balance_history_chart_card.dart';
 
 class Dashboard extends StatelessWidget {
   const Dashboard({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    // final cardWidth = cardSize.width * 2 + 20;
-    return Padding(
-      padding: const EdgeInsets.all(40),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+  Widget makeARow(
+    int firstFlex,
+    int secondFlex,
+    Widget firstChild,
+    Widget secondWidget,
+    double? height,
+  ) {
+    return Container(
+      height: height,
+      padding: const EdgeInsets.only(
+        bottom: 0,
+        left: 20,
+        right: 20,
+        top: 20,
+      ),
+      child: Row(
         children: [
-          CreditCardsList(
-            crossWidget: CrossWidgetDelegator(
-              box: TransactionsBox(),
-              labels: [
-                const Text("تراکنش های اخیر"),
-              ],
-            ),
+          Flexible(
+            fit: FlexFit.tight,
+            flex: firstFlex,
+            child: firstChild,
+          ),
+          const SizedBox(
+            width: 20,
+          ),
+          Flexible(
+            fit: FlexFit.tight,
+            flex: secondFlex,
+            child: secondWidget,
           )
         ],
       ),
     );
   }
-}
-
-class TransactionsBox extends StatelessWidget {
-  const TransactionsBox({
-    super.key,
-  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: Colors.white,
-      ),
+    return SingleChildScrollView(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          ListTile(
-            autofocus: true,
-            leading: Container(
-              width: 50,
-              height: 50,
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 255, 245, 217),
-                borderRadius: BorderRadius.circular(100),
-              ),
-              child: const Icon(
-                  color: Color.fromARGB(255, 255, 185, 56), Icons.credit_card),
+          makeARow(
+            75,
+            25,
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("کارت های من"),
+                Text("دیدن همه"),
+              ],
             ),
-            title: const Text("برداشت از حساب من"),
-            subtitle: const Text("8 مرداد 1403"),
-            trailing: const NumberText(
-              textNumber: "-\$724",
-              style: TextStyle(
-                color: Colors.redAccent,
-                fontSize: 14,
-              ),
-            ),
+            const Text("تراکنش های اخیر"),
+            null,
           ),
-          ListTile(
-            autofocus: true,
-            leading: Container(
-              width: 50,
-              height: 50,
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 231, 237, 255),
-                borderRadius: BorderRadius.circular(100),
-              ),
-              child: const Icon(
-                  color: Color.fromARGB(255, 70, 30, 232),
-                  Icons.paypal_outlined),
-            ),
-            title: const Text("واریز پی پال"),
-            subtitle: const Text("8 مرداد 1403"),
-            trailing: const NumberText(
-              textNumber: "+\$3,481",
-              style: TextStyle(
-                color: Colors.lightGreen,
-                fontSize: 14,
-              ),
-            ),
+          makeARow(75, 25, CreditCardsList(), TransactionsBox(), 300),
+          makeARow(
+            75,
+            25,
+            const Text("فعالیت هفتگی"),
+            const Text("آمار خرجی"),
+            null,
           ),
-          ListTile(
-            autofocus: true,
-            leading: Container(
-              width: 50,
-              height: 50,
-              decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 220, 250, 248),
-                  borderRadius: BorderRadius.circular(100)),
-              child: const Icon(
-                  color: Color.fromARGB(255, 22, 219, 203),
-                  Icons.paypal_outlined),
-            ),
-            title: const Text("موسی جعفری"),
-            subtitle: const Text("8 مرداد 1403"),
-            trailing: const NumberText(
-              textNumber: "+\$1,740",
-              style: TextStyle(
-                color: Colors.lightGreen,
-                fontSize: 14,
-              ),
-            ),
+          makeARow(75, 25, ActivityBarChart(), const ExpensesStatistics(), 400),
+          makeARow(
+            35,
+            65,
+            const Text("انتقال سریع"),
+            const Text("تاریخچه موجودی"),
+            null,
           ),
+          makeARow(35, 65, QuickTransferCard(), BalanceHistoryChartCard(), 350),
         ],
       ),
     );
