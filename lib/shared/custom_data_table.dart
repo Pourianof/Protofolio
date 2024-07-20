@@ -2,13 +2,20 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
+
+final _defaultTableConfig = CustomDataTableConfig(
+  cellsAllignment: Alignment.center,
+);
 
 class CustomDataTable extends StatelessWidget {
   final List<CustomDataTableRow> rows;
   final BorderSide? Function(int index)? dividerGenerator;
+  final CustomDataTableConfig? configs;
   const CustomDataTable({
     super.key,
     required this.rows,
+    this.configs,
     this.dividerGenerator,
   });
 
@@ -28,9 +35,11 @@ class CustomDataTable extends StatelessWidget {
     } else {
       _rows = rows;
     }
-
-    return _CustomDataTableBase(
-      rows: _rows,
+    return TableDefaultConfig(
+      tableConfigs: configs ?? _defaultTableConfig,
+      child: _CustomDataTableBase(
+        rows: _rows,
+      ),
     );
   }
 }
@@ -81,7 +90,8 @@ class _CustomDataTableBase extends MultiChildRenderObjectWidget {
 
   @override
   RenderObject createRenderObject(BuildContext context) {
-    return _CustomDataTableRenderer();
+    final confs = TableDefaultConfig.of(context);
+    return _CustomDataTableRenderer(rowPadding: confs?.rowPaddings);
   }
 }
 
@@ -89,6 +99,9 @@ class _CustomDataTableRenderer extends RenderBox
     with
         ContainerRenderObjectMixin<RenderBox, _CustomDataTableParentData>,
         RenderBoxContainerDefaultsMixin<RenderBox, _CustomDataTableParentData> {
+  final EdgeInsets? rowPadding;
+  _CustomDataTableRenderer({this.rowPadding});
+
   @override
   void setupParentData(covariant RenderObject child) {
     if (child.parentData is! _CustomDataTableParentData) {
@@ -129,6 +142,8 @@ class _CustomDataTableRenderer extends RenderBox
         rowWidth += value!;
       },
     );
+
+    rowWidth += (rowPadding?.horizontal ?? 0);
 
     final cellSpaceShare =
         constraints.hasBoundedWidth && constraints.maxWidth > rowWidth
@@ -193,30 +208,37 @@ class _CustomDataTableRenderer extends RenderBox
 class _CustomDataTableParentData extends ContainerBoxParentData<RenderBox> {}
 
 class CustomDataTableRow extends StatelessWidget {
-  final List<Widget> cells;
+  final List<CustomDataCell> cells;
   const CustomDataTableRow({
     required this.cells,
     super.key,
   });
   @override
   Widget build(BuildContext context) {
+    final tableConfigs = TableDefaultConfig.of(context);
+
     return DefaultTextStyle(
       style: Theme.of(context).textTheme.bodyMedium ?? const TextStyle(),
       softWrap: false,
-      child: CustomDataRow(
+      child: _CustomDataRow(
         cells: cells,
+        padding: tableConfigs?.rowPaddings ?? _defaultTableConfig.rowPaddings,
       ),
     );
   }
 }
 
-class CustomDataRow extends MultiChildRenderObjectWidget {
-  const CustomDataRow({super.key, required List<Widget> cells})
-      : super(children: cells);
+class _CustomDataRow extends MultiChildRenderObjectWidget {
+  final EdgeInsets? padding;
+  const _CustomDataRow({
+    super.key,
+    required List<Widget> cells,
+    this.padding,
+  }) : super(children: cells);
 
   @override
   RenderObject createRenderObject(BuildContext context) {
-    return _RenderCustomDataRow();
+    return _RenderCustomDataRow(padding: padding);
   }
 }
 
@@ -225,6 +247,9 @@ class _RenderCustomDataRow extends RenderBox
         ContainerRenderObjectMixin<RenderBox, _CustomDataTableRowParentData>,
         RenderBoxContainerDefaultsMixin<RenderBox,
             _CustomDataTableRowParentData> {
+  EdgeInsets? padding;
+  _RenderCustomDataRow({this.padding});
+
   @override
   void insert(RenderBox child, {RenderBox? after}) {
     super.insert(child, after: after);
@@ -294,7 +319,10 @@ class _RenderCustomDataRow extends RenderBox
     }
     _cellSizes = calculatedCellSizes;
 
-    return _lastComputedSize = Size(width, height);
+    return _lastComputedSize = Size(
+      width + (padding?.horizontal ?? 0),
+      height + (padding?.vertical ?? 0),
+    );
   }
 
   Map<int, Size> get cellSizes {
@@ -315,7 +343,7 @@ class _RenderCustomDataRow extends RenderBox
       return;
     }
 
-    double occupiedWidth = 0;
+    double occupiedWidth = padding?.left ?? 0;
 
     double height = 0;
 
@@ -332,16 +360,25 @@ class _RenderCustomDataRow extends RenderBox
 
       final childSize = child.size;
 
-      childParentData.offset = Offset(occupiedWidth, 0);
+      childParentData.offset = Offset(
+        occupiedWidth,
+        padding?.top ?? 0,
+      );
 
       occupiedWidth += childSize.width;
 
-      height = max(height, childSize.height);
+      height = max(
+        height,
+        childSize.height,
+      );
 
       child = childParentData.nextSibling;
     }
 
-    size = Size(occupiedWidth, height);
+    size = Size(
+      occupiedWidth + (padding?.right ?? 0),
+      height + (2 * (padding?.bottom ?? 0)),
+    );
   }
 
   @override
@@ -378,4 +415,59 @@ class _CustomDataTableConstraints extends BoxConstraints {
 
 class _CustomDataTableRowParentData extends ContainerBoxParentData<RenderBox> {
   int? cellIndex;
+}
+
+class CustomDataCell extends Container {
+  CustomDataCell({
+    super.color,
+    required Widget data,
+    Alignment? alignment,
+    EdgeInsets? padding,
+    super.key,
+  }) : super(
+          child: data,
+          alignment: alignment ?? _defaultTableConfig.cellsAllignment,
+          padding: padding ?? _defaultTableConfig.cellsPadding,
+        );
+}
+
+class CustomDataTableConfig {
+  final EdgeInsets? cellsPadding;
+  final Alignment? cellsAllignment;
+  final EdgeInsets? rowPaddings;
+
+  CustomDataTableConfig({
+    this.cellsPadding,
+    this.cellsAllignment,
+    this.rowPaddings,
+  });
+
+  @override
+  bool operator ==(Object other) {
+    if (other is CustomDataTableConfig) {
+      return other.cellsAllignment == cellsAllignment &&
+          other.cellsPadding == cellsPadding &&
+          other.rowPaddings == rowPaddings;
+    }
+    return false;
+  }
+}
+
+class TableDefaultConfig extends InheritedWidget {
+  static CustomDataTableConfig? of(BuildContext context) {
+    final configsWidget =
+        context.findAncestorWidgetOfExactType<TableDefaultConfig>();
+    return configsWidget?.tableConfigs;
+  }
+
+  final CustomDataTableConfig? tableConfigs;
+  TableDefaultConfig({
+    this.tableConfigs,
+    required super.child,
+  });
+
+  @override
+  bool updateShouldNotify(covariant TableDefaultConfig oldWidget) {
+    return oldWidget.tableConfigs != tableConfigs;
+  }
 }

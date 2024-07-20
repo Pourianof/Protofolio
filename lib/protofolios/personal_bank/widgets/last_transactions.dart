@@ -91,74 +91,86 @@ class _LastTransactionsState extends State<LastTransactions> {
                 dividerTheme: DividerThemeData(color: Colors.red),
               ),
               child: CustomDataTable(
+                configs: CustomDataTableConfig(
+                  rowPaddings: EdgeInsets.all(10),
+                ),
                 dividerGenerator: (index) {
                   if (index == 0) {
-                    return BorderSide(
-                      color: Colors.red,
-                      width: 4,
+                    return const BorderSide(
+                      color: AppColors.mainLightGrey,
+                      width: 1,
                     );
                   }
-                  return BorderSide(
-                    color: Colors.blue,
-                    width: 2,
+                  return const BorderSide(
+                    color: AppColors.mainLightGrey_100,
+                    width: 1,
                   );
                 },
                 rows: [
-                  const CustomDataTableRow(
+                  CustomDataTableRow(
                     cells: [
-                      Text(
-                        'توضیحات',
-                        // style: TextStyle(fontStyle: FontStyle.italic),
+                      CustomDataCell(
+                        data: const Text(
+                          'توضیحات',
+                          // style: TextStyle(fontStyle: FontStyle.italic),
+                        ),
                       ),
-                      Text(
-                        'شناسه',
-                        // style: TextStyle(fontStyle: FontStyle.italic),
+                      CustomDataCell(
+                        data: const Text(
+                          'شناسه',
+                          // style: TextStyle(fontStyle: FontStyle.italic),
+                        ),
                       ),
-                      Text(
-                        'نوع',
-                        // style: TextStyle(fontStyle: FontStyle.italic),
+                      CustomDataCell(
+                        data: const Text(
+                          'نوع',
+                          // style: TextStyle(fontStyle: FontStyle.italic),
+                        ),
                       ),
-                      Text(
-                        'شماره کارت',
-                        // style: TextStyle(fontStyle: FontStyle.italic),
+                      CustomDataCell(
+                        data: const Text(
+                          'شماره کارت',
+                          // style: TextStyle(fontStyle: FontStyle.italic),
+                        ),
                       ),
-                      Text(
-                        'تاریخ',
-                        // style: TextStyle(fontStyle: FontStyle.italic),
+                      CustomDataCell(
+                        data: const Text(
+                          'تاریخ',
+                          // style: TextStyle(fontStyle: FontStyle.italic),
+                        ),
                       ),
-                      Text(
-                        'مقدار',
-                        // style: TextStyle(fontStyle: FontStyle.italic),
+                      CustomDataCell(
+                        data: const Text(
+                          'مقدار',
+                          // style: TextStyle(fontStyle: FontStyle.italic),
+                        ),
                       ),
-                      Text(
-                        'رسید',
-                        // style: TextStyle(fontStyle: FontStyle.italic),
+                      CustomDataCell(
+                        data: const Text(
+                          'رسید',
+                          // style: TextStyle(fontStyle: FontStyle.italic),
+                        ),
                       ),
                     ],
                   ),
                   ...TRANSACTIONS.map((trx) {
                     return CustomDataTableRow(cells: [
-                      Container(
-                        child: Text(
+                      CustomDataCell(
+                        data: Text(
                           trx.description,
                         ),
                       ),
-                      Text(trx.id),
-                      Text(trx.type),
-                      // Container(
-                      //   padding:
-                      //   EdgeInsets.symmetric(
-                      //     vertical: 10,
-                      //   ),
-                      //   child:
-                      Text(trx.cardNumber),
-                      // ),
-                      Text(trx.date.toIso8601String()),
-                      Text(
-                        trx.amount.toString(),
+                      CustomDataCell(data: Text(trx.id)),
+                      CustomDataCell(data: Text(trx.type)),
+                      CustomDataCell(data: Text(trx.cardNumber)),
+                      CustomDataCell(data: Text(trx.date.toIso8601String())),
+                      CustomDataCell(
+                        data: Text(
+                          trx.amount.toString(),
+                        ),
                       ),
-                      Container(
-                        child: const Text("دانلود"),
+                      CustomDataCell(
+                        data: const Text("دانلود"),
                       ),
                     ]);
                   }),
