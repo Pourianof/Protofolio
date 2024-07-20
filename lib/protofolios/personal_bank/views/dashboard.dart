@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_portfolio/protofolios/personal_bank/widgets/credit_cards_list.dart';
+import 'package:my_portfolio/protofolios/personal_bank/widgets/standard_texts.dart';
 import 'package:my_portfolio/shared/partition_layout.dart';
 import '../widgets/transaction_box.dart';
 import '../widgets/activity_bar_chart.dart';
@@ -55,14 +56,14 @@ class Dashboard extends StatelessWidget {
               const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("کارت های من"),
-                  Text("دیدن همه"),
+                  MediumTitle("کارت های من"),
+                  MediumTitle("دیدن همه"),
                 ],
               ),
               75,
             ),
             PartitionItem(
-              const Text("تراکنش های اخیر"),
+              const MediumTitle("تراکنش های اخیر"),
               25,
             ),
           ],
@@ -83,8 +84,8 @@ class Dashboard extends StatelessWidget {
         ),
         PartitionRow(
           [
-            PartitionItem(const Text("فعالیت هفتگی"), 75),
-            PartitionItem(const Text("تاریخچه موجودی"), 25),
+            PartitionItem(const MediumTitle("فعالیت هفتگی"), 75),
+            PartitionItem(const MediumTitle("تاریخچه موجودی"), 25),
           ],
           null,
         ),
@@ -96,8 +97,8 @@ class Dashboard extends StatelessWidget {
           400,
         ),
         PartitionRow([
-          PartitionItem(const Text("انتقال سریع"), 35),
-          PartitionItem(const Text("تاریخچه موجودی"), 65),
+          PartitionItem(const MediumTitle("انتقال سریع"), 35),
+          PartitionItem(const MediumTitle("تاریخچه موجودی"), 65),
         ], null),
         PartitionRow(
           [

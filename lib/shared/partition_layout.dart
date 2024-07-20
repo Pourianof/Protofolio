@@ -47,7 +47,7 @@ class PartitionLayout extends StatelessWidget {
     return Container(
       height: partition.height,
       padding: const EdgeInsets.only(
-        bottom: 0,
+        bottom: 20,
         left: 20,
         right: 20,
         top: 20,

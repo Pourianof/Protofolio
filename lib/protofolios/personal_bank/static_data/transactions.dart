@@ -38,7 +38,7 @@ final TRANSACTIONS = [
     description: "پرداخت دستمزد مراد",
     id: "#12345678",
     type: "انتقال",
-    amount: -600000,
+    amount: 600000,
     cardNumber: "1234 ****",
     date: DateTime.now(),
   ),

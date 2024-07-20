@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class SideBar extends StatefulWidget {
-  const SideBar({super.key});
+  final Sink<int> newIndexSink;
+  const SideBar({super.key, required this.newIndexSink});
 
   @override
   State<SideBar> createState() => _SideBarState();
@@ -31,9 +32,14 @@ class _SideBarState extends State<SideBar> {
           }
         }),
         child: InkWell(
-          onTap: () => setState(() {
-            selectedItemIndex = index;
-          }),
+          onTap: () {
+            if (index != selectedItemIndex) {
+              setState(() {
+                selectedItemIndex = index;
+              });
+              widget.newIndexSink.add(index);
+            }
+          },
           child: Container(
             color: isHovered ? Color.fromARGB(45, 175, 175, 175) : null,
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),

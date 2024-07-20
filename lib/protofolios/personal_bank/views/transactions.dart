@@ -3,6 +3,7 @@ import 'package:my_portfolio/protofolios/personal_bank/widgets/credit_cards_list
 import 'package:my_portfolio/protofolios/personal_bank/widgets/expenses_chart.dart';
 import 'package:my_portfolio/protofolios/personal_bank/widgets/last_transactions.dart';
 import 'package:my_portfolio/shared/partition_layout.dart';
+import 'package:my_portfolio/protofolios/personal_bank/widgets/standard_texts.dart';
 
 class Transactions extends StatelessWidget {
   const Transactions({super.key});
@@ -17,14 +18,14 @@ class Transactions extends StatelessWidget {
               const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("کارت های من"),
-                  Text("+ افزودن کارت"),
+                  MediumTitle("کارت های من"),
+                  MediumTitle("+ افزودن کارت"),
                 ],
               ),
               75,
             ),
             PartitionItem(
-              const Text("خرج های من"),
+              const MediumTitle("خرج های من"),
               25,
             ),
           ],
@@ -46,7 +47,7 @@ class Transactions extends StatelessWidget {
         PartitionRow(
           [
             PartitionItem(
-              const Text("تراکنش های اخیر"),
+              const MediumTitle("تراکنش های اخیر"),
               100,
             ),
           ],

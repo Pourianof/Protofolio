@@ -77,7 +77,7 @@ class _MyHomePageState extends State<MyProtofolio> {
               ],
             ),
           ),
-          const Expanded(
+          Expanded(
             child: Center(
               child: PersonalBank(),
             ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_portfolio/protofolios/personal_bank/resources/app_colors.dart';
 import 'package:my_portfolio/protofolios/personal_bank/static_data/transactions.dart';
+import 'package:my_portfolio/protofolios/personal_bank/widgets/standard_texts.dart';
 import 'package:my_portfolio/shared/custom_data_table.dart';
 import 'package:my_portfolio/utils/number_text.dart';
 
@@ -54,7 +55,7 @@ class _LastTransactionsState extends State<LastTransactions> {
                           ),
                         ),
                       ),
-                      child: const Text("تمام تراکنش ها"),
+                      child: const ActiveLink("تمام تراکنش ها"),
                     ),
                     Container(
                       width: 150,
@@ -63,7 +64,7 @@ class _LastTransactionsState extends State<LastTransactions> {
                         vertical: 10,
                         horizontal: 20,
                       ),
-                      child: const Text("درآمد ها"),
+                      child: const NonActiveLink("درآمد ها"),
                     ),
                     Container(
                       width: 150,
@@ -72,7 +73,7 @@ class _LastTransactionsState extends State<LastTransactions> {
                         vertical: 10,
                         horizontal: 20,
                       ),
-                      child: const Text("خرجی ها"),
+                      child: const NonActiveLink("خرجی ها"),
                     ),
                   ],
                 ),
@@ -106,6 +107,8 @@ class _LastTransactionsState extends State<LastTransactions> {
                       color: AppColors.mainLightGrey,
                       width: 1,
                     );
+                  } else if (index == TRANSACTIONS.length) {
+                    return null;
                   }
                   return const BorderSide(
                     color: AppColors.mainLightGrey_100,
@@ -113,7 +116,7 @@ class _LastTransactionsState extends State<LastTransactions> {
                   );
                 },
                 rows: [
-                  CustomDataTableRow(
+                  const CustomDataTableRow(
                     cells: [
                       CustomDataCell(
                         data: const Text(
@@ -162,8 +165,20 @@ class _LastTransactionsState extends State<LastTransactions> {
                   ...TRANSACTIONS.map((trx) {
                     return CustomDataTableRow(cells: [
                       CustomDataCell(
-                        data: Text(
-                          trx.description,
+                        data: Row(
+                          children: [
+                            Icon(
+                              trx.amount > 0
+                                  ? Icons.arrow_circle_down_rounded
+                                  : Icons.arrow_circle_up_rounded,
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              trx.description,
+                            ),
+                          ],
                         ),
                       ),
                       CustomDataCell(data: Text(trx.id)),
@@ -173,11 +188,32 @@ class _LastTransactionsState extends State<LastTransactions> {
                       CustomDataCell(data: Text(trx.date.toIso8601String())),
                       CustomDataCell(
                         data: NumberText(
-                          textNumber: trx.amount.toString(),
+                          style: TextStyle(
+                            color: trx.amount > 0 ? Colors.green : Colors.red,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textNumber:
+                              "${trx.amount.sign > 0 ? "+" : "-"}\$${trx.amount.abs()}",
                         ),
                       ),
                       CustomDataCell(
-                        data: const Text("دانلود"),
+                        data: Container(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 5,
+                            horizontal: 10,
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            border: Border.all(
+                                color: AppColors.navi_blue, width: 1),
+                          ),
+                          child: const Text(
+                            "دانلود",
+                            style: TextStyle(
+                              color: AppColors.navi_blue,
+                            ),
+                          ),
+                        ),
                       ),
                     ]);
                   }),
@@ -185,7 +221,41 @@ class _LastTransactionsState extends State<LastTransactions> {
               ),
             ),
           ),
-        )
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            vertical: 20,
+          ),
+          child: Row(
+            children: [
+              const ActiveLink("< قبل"),
+              const SizedBox(
+                width: 5,
+              ),
+              ...List.generate(
+                4,
+                (index) => Container(
+                  width: 30,
+                  height: 30,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    color: index == 0 ? AppColors.darkBlue : Colors.transparent,
+                  ),
+                  child: Text(
+                    "${index + 1}",
+                    style: TextStyle(
+                        color: index != 0 ? AppColors.darkBlue : Colors.white),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                width: 5,
+              ),
+              ActiveLink("بعد >"),
+            ],
+          ),
+        ),
       ],
     );
   }

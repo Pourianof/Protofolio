@@ -1,19 +1,44 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:my_portfolio/protofolios/personal_bank/views/transactions.dart';
 import '../views/dashboard.dart';
 
-class MainView extends StatelessWidget {
-  const MainView({super.key});
+class MainView extends StatefulWidget {
+  final Stream<int> indexDistpacher;
+  const MainView({super.key, required this.indexDistpacher});
+
+  @override
+  State<MainView> createState() => _MainViewState();
+}
+
+class _MainViewState extends State<MainView> {
+  late StreamSubscription onDispatchSub;
+  int displayingViewIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    onDispatchSub = widget.indexDistpacher.listen(_onIndexDispatched);
+  }
+
+  _onIndexDispatched(int index) {
+    if (index != displayingViewIndex) {
+      setState(() {
+        displayingViewIndex = index;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       children: [
-        MainViewTopBar(),
+        const MainViewTopBar(),
         Expanded(
           child: IndexedStack(
-            index: 1,
-            children: [
+            index: displayingViewIndex,
+            children: const [
               Dashboard(),
               Transactions(),
             ],
