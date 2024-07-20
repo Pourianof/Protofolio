@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_portfolio/protofolios/personal_bank/views/transactions.dart';
 import '../views/dashboard.dart';
 
 class MainView extends StatelessWidget {
@@ -6,19 +7,15 @@ class MainView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       children: [
         MainViewTopBar(),
         Expanded(
           child: IndexedStack(
-            index: 0,
+            index: 1,
             children: [
-              LayoutBuilder(
-                builder: (context, constraints) {
-                  print(constraints);
-                  return Dashboard();
-                },
-              )
+              Dashboard(),
+              Transactions(),
             ],
           ),
         )

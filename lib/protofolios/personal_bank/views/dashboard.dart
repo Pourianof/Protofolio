@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_portfolio/protofolios/personal_bank/widgets/credit_cards_list.dart';
+import 'package:my_portfolio/shared/partition_layout.dart';
 import '../widgets/transaction_box.dart';
 import '../widgets/activity_bar_chart.dart';
 import '../widgets/expenses_statistics.dart';
@@ -46,41 +47,66 @@ class Dashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          makeARow(
-            75,
-            25,
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("کارت های من"),
-                Text("دیدن همه"),
-              ],
+    return PartitionLayout(
+      partitions: [
+        PartitionRow(
+          [
+            PartitionItem(
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("کارت های من"),
+                  Text("دیدن همه"),
+                ],
+              ),
+              75,
             ),
-            const Text("تراکنش های اخیر"),
-            null,
-          ),
-          makeARow(75, 25, CreditCardsList(), TransactionsBox(), 300),
-          makeARow(
-            75,
-            25,
-            const Text("فعالیت هفتگی"),
-            const Text("آمار خرجی"),
-            null,
-          ),
-          makeARow(75, 25, ActivityBarChart(), const ExpensesStatistics(), 400),
-          makeARow(
-            35,
-            65,
-            const Text("انتقال سریع"),
-            const Text("تاریخچه موجودی"),
-            null,
-          ),
-          makeARow(35, 65, QuickTransferCard(), BalanceHistoryChartCard(), 350),
-        ],
-      ),
+            PartitionItem(
+              const Text("تراکنش های اخیر"),
+              25,
+            ),
+          ],
+          null,
+        ),
+        PartitionRow(
+          [
+            PartitionItem(
+              const CreditCardsList(),
+              75,
+            ),
+            PartitionItem(
+              const TransactionsBox(),
+              25,
+            )
+          ],
+          300,
+        ),
+        PartitionRow(
+          [
+            PartitionItem(const Text("فعالیت هفتگی"), 75),
+            PartitionItem(const Text("تاریخچه موجودی"), 25),
+          ],
+          null,
+        ),
+        PartitionRow(
+          [
+            PartitionItem(ActivityBarChart(), 75),
+            PartitionItem(const ExpensesStatistics(), 25),
+          ],
+          400,
+        ),
+        PartitionRow([
+          PartitionItem(const Text("انتقال سریع"), 35),
+          PartitionItem(const Text("تاریخچه موجودی"), 65),
+        ], null),
+        PartitionRow(
+          [
+            PartitionItem(QuickTransferCard(), 35),
+            PartitionItem(BalanceHistoryChartCard(), 65),
+          ],
+          350,
+        ),
+      ],
     );
   }
 }
