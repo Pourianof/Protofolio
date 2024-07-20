@@ -91,6 +91,18 @@ class _LastTransactionsState extends State<LastTransactions> {
                 dividerTheme: DividerThemeData(color: Colors.red),
               ),
               child: CustomDataTable(
+                dividerGenerator: (index) {
+                  if (index == 0) {
+                    return BorderSide(
+                      color: Colors.red,
+                      width: 4,
+                    );
+                  }
+                  return BorderSide(
+                    color: Colors.blue,
+                    width: 2,
+                  );
+                },
                 rows: [
                   const CustomDataTableRow(
                     cells: [

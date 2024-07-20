@@ -3,10 +3,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-class _CustomDataTable extends StatelessWidget {
+class CustomDataTable extends StatelessWidget {
   final List<CustomDataTableRow> rows;
-  final BorderSide Function(int index)? dividerGenerator;
-  const _CustomDataTable({
+  final BorderSide? Function(int index)? dividerGenerator;
+  const CustomDataTable({
     super.key,
     required this.rows,
     this.dividerGenerator,
@@ -14,16 +14,24 @@ class _CustomDataTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> _rows = [];
     if (dividerGenerator != null) {
-      final rowDividers = List.generate(
-        rows.length,
-        (index) {
-          return dividerGenerator!(index);
-        },
-      );
+      for (int i = 0; i < rows.length; i++) {
+        _rows.add(rows[i]);
+        final border = dividerGenerator!(i);
+        if (border != null) {
+          _rows.add(
+            _RowDivider(dividerStyle: border),
+          );
+        }
+      }
+    } else {
+      _rows = rows;
     }
 
-    return Container();
+    return _CustomDataTableBase(
+      rows: _rows,
+    );
   }
 }
 
@@ -67,8 +75,8 @@ class _ColumnDivider extends _TableDividerBase {
 
 class _RenderColumnDivider extends RenderProxyBox {}
 
-class CustomDataTable extends MultiChildRenderObjectWidget {
-  const CustomDataTable({super.key, required List<CustomDataTableRow> rows})
+class _CustomDataTableBase extends MultiChildRenderObjectWidget {
+  const _CustomDataTableBase({required List<Widget> rows})
       : super(children: rows);
 
   @override
@@ -96,22 +104,19 @@ class _CustomDataTableRenderer extends RenderBox
     while (child != null) {
       final childParentData = child.parentData as _CustomDataTableParentData;
 
-      assert(child is _RenderCustomDataRow, () {
-        throw Exception(
-            "Direct child of [CutomDataTable] only could be [CustomDataTableRow] widget.");
-      });
+      if (child is _RenderCustomDataRow) {
+        final row = child;
+        row.computeCellsSizes();
 
-      final row = (child as _RenderCustomDataRow);
-      row.computeCellsSizes();
+        for (var entry in row.cellSizes.entries) {
+          final index = entry.key;
+          final size = entry.value;
+          final newWidth = size.width;
 
-      for (var entry in row.cellSizes.entries) {
-        final index = entry.key;
-        final size = entry.value;
-        final newWidth = size.width;
-
-        if (maxWidthOfEachColumn[index] == null ||
-            maxWidthOfEachColumn[index]! < newWidth) {
-          maxWidthOfEachColumn[index] = newWidth;
+          if (maxWidthOfEachColumn[index] == null ||
+              maxWidthOfEachColumn[index]! < newWidth) {
+            maxWidthOfEachColumn[index] = newWidth;
+          }
         }
       }
 
@@ -147,17 +152,28 @@ class _CustomDataTableRenderer extends RenderBox
     while (child != null) {
       final childParentData = child.parentData as _CustomDataTableParentData;
 
-      child.layout(
-        _CustomDataTableConstraints(
-          cellsConstraints: rowsMaxWidth,
-        ),
-        parentUsesSize: true,
-      );
+      if (child is _RenderCustomDataRow) {
+        child.layout(
+          _CustomDataTableConstraints(
+            cellsConstraints: rowsMaxWidth,
+          ),
+          parentUsesSize: true,
+        );
 
-      childParentData.offset = Offset(0, occupiedHeight);
+        if (tableWidth == 0) {
+          tableWidth = child.size.width;
+        }
 
+        childParentData.offset = Offset(0, occupiedHeight);
+      } else if (child is _RenderRowDivider) {
+        child.layout(
+          BoxConstraints.tightFor(width: tableWidth),
+          parentUsesSize: true,
+        );
+
+        childParentData.offset = Offset(0, occupiedHeight);
+      }
       occupiedHeight += child.size.height;
-      tableWidth += child.size.width;
 
       child = childParentData.nextSibling;
     }
