@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_portfolio/protofolios/personal_bank/resources/app_colors.dart';
 import 'package:my_portfolio/protofolios/personal_bank/static_data/transactions.dart';
 import 'package:my_portfolio/shared/custom_data_table.dart';
+import 'package:my_portfolio/utils/number_text.dart';
 
 class LastTransactions extends StatefulWidget {
   const LastTransactions({super.key});
@@ -13,6 +14,10 @@ class LastTransactions extends StatefulWidget {
 class _LastTransactionsState extends State<LastTransactions> {
   @override
   Widget build(BuildContext context) {
+    const headStyle = TextStyle(
+      color: AppColors.mainLightGrey,
+      fontSize: 16,
+    );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -93,6 +98,7 @@ class _LastTransactionsState extends State<LastTransactions> {
               child: CustomDataTable(
                 configs: CustomDataTableConfig(
                   rowPaddings: EdgeInsets.all(10),
+                  cellsAllignment: Alignment.centerRight,
                 ),
                 dividerGenerator: (index) {
                   if (index == 0) {
@@ -112,43 +118,43 @@ class _LastTransactionsState extends State<LastTransactions> {
                       CustomDataCell(
                         data: const Text(
                           'توضیحات',
-                          // style: TextStyle(fontStyle: FontStyle.italic),
+                          style: headStyle,
                         ),
                       ),
                       CustomDataCell(
                         data: const Text(
                           'شناسه',
-                          // style: TextStyle(fontStyle: FontStyle.italic),
+                          style: headStyle,
                         ),
                       ),
                       CustomDataCell(
                         data: const Text(
                           'نوع',
-                          // style: TextStyle(fontStyle: FontStyle.italic),
+                          style: headStyle,
                         ),
                       ),
                       CustomDataCell(
                         data: const Text(
                           'شماره کارت',
-                          // style: TextStyle(fontStyle: FontStyle.italic),
+                          style: headStyle,
                         ),
                       ),
                       CustomDataCell(
                         data: const Text(
                           'تاریخ',
-                          // style: TextStyle(fontStyle: FontStyle.italic),
+                          style: headStyle,
                         ),
                       ),
                       CustomDataCell(
                         data: const Text(
                           'مقدار',
-                          // style: TextStyle(fontStyle: FontStyle.italic),
+                          style: headStyle,
                         ),
                       ),
                       CustomDataCell(
                         data: const Text(
                           'رسید',
-                          // style: TextStyle(fontStyle: FontStyle.italic),
+                          style: headStyle,
                         ),
                       ),
                     ],
@@ -162,11 +168,12 @@ class _LastTransactionsState extends State<LastTransactions> {
                       ),
                       CustomDataCell(data: Text(trx.id)),
                       CustomDataCell(data: Text(trx.type)),
-                      CustomDataCell(data: Text(trx.cardNumber)),
+                      CustomDataCell(
+                          data: NumberText(textNumber: trx.cardNumber)),
                       CustomDataCell(data: Text(trx.date.toIso8601String())),
                       CustomDataCell(
-                        data: Text(
-                          trx.amount.toString(),
+                        data: NumberText(
+                          textNumber: trx.amount.toString(),
                         ),
                       ),
                       CustomDataCell(

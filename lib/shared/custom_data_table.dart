@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 
 final _defaultTableConfig = CustomDataTableConfig(
   cellsAllignment: Alignment.center,
@@ -91,7 +90,11 @@ class _CustomDataTableBase extends MultiChildRenderObjectWidget {
   @override
   RenderObject createRenderObject(BuildContext context) {
     final confs = TableDefaultConfig.of(context);
-    return _CustomDataTableRenderer(rowPadding: confs?.rowPaddings);
+    final textDirection = Directionality.of(context);
+    return _CustomDataTableRenderer(
+      rowPadding: confs?.rowPaddings,
+      isRTL: textDirection == TextDirection.rtl,
+    );
   }
 }
 
@@ -100,7 +103,8 @@ class _CustomDataTableRenderer extends RenderBox
         ContainerRenderObjectMixin<RenderBox, _CustomDataTableParentData>,
         RenderBoxContainerDefaultsMixin<RenderBox, _CustomDataTableParentData> {
   final EdgeInsets? rowPadding;
-  _CustomDataTableRenderer({this.rowPadding});
+  final bool isRTL;
+  _CustomDataTableRenderer({this.rowPadding, required this.isRTL});
 
   @override
   void setupParentData(covariant RenderObject child) {
@@ -179,15 +183,16 @@ class _CustomDataTableRenderer extends RenderBox
           tableWidth = child.size.width;
         }
 
-        childParentData.offset = Offset(0, occupiedHeight);
+        childParentData.offset =
+            Offset(isRTL ? child.size.width : 0, occupiedHeight);
       } else if (child is _RenderRowDivider) {
         child.layout(
           BoxConstraints.tightFor(width: tableWidth),
           parentUsesSize: true,
         );
-
         childParentData.offset = Offset(0, occupiedHeight);
       }
+
       occupiedHeight += child.size.height;
 
       child = childParentData.nextSibling;
@@ -238,7 +243,10 @@ class _CustomDataRow extends MultiChildRenderObjectWidget {
 
   @override
   RenderObject createRenderObject(BuildContext context) {
-    return _RenderCustomDataRow(padding: padding);
+    return _RenderCustomDataRow(
+      padding: padding,
+      textDirection: Directionality.of(context),
+    );
   }
 }
 
@@ -248,7 +256,8 @@ class _RenderCustomDataRow extends RenderBox
         RenderBoxContainerDefaultsMixin<RenderBox,
             _CustomDataTableRowParentData> {
   EdgeInsets? padding;
-  _RenderCustomDataRow({this.padding});
+  TextDirection? textDirection;
+  _RenderCustomDataRow({this.padding, this.textDirection});
 
   @override
   void insert(RenderBox child, {RenderBox? after}) {
@@ -343,12 +352,15 @@ class _RenderCustomDataRow extends RenderBox
       return;
     }
 
-    double occupiedWidth = padding?.left ?? 0;
+    final isRTL = textDirection == TextDirection.rtl;
+    double occupiedWidth = isRTL ? (padding?.right ?? 0) : (padding?.left ?? 0);
 
     double height = 0;
 
     final cellConstraints =
         (constraints as _CustomDataTableConstraints).cellsConstraints;
+
+    final vectorSign = isRTL ? -1 : 1;
 
     while (child != null) {
       final childParentData = child.parentData as _CustomDataTableRowParentData;
@@ -360,8 +372,10 @@ class _RenderCustomDataRow extends RenderBox
 
       final childSize = child.size;
 
+      double initialOffset = isRTL ? -childSize.width : 0;
+
       childParentData.offset = Offset(
-        occupiedWidth,
+        (vectorSign * occupiedWidth) + initialOffset,
         padding?.top ?? 0,
       );
 
@@ -417,18 +431,33 @@ class _CustomDataTableRowParentData extends ContainerBoxParentData<RenderBox> {
   int? cellIndex;
 }
 
-class CustomDataCell extends Container {
-  CustomDataCell({
-    super.color,
-    required Widget data,
-    Alignment? alignment,
-    EdgeInsets? padding,
+class CustomDataCell extends StatelessWidget {
+  final Widget data;
+  final Color? color;
+  final Alignment? alignment;
+  final EdgeInsets? padding;
+  const CustomDataCell({
+    this.color,
+    required this.data,
+    this.alignment,
+    this.padding,
     super.key,
-  }) : super(
-          child: data,
-          alignment: alignment ?? _defaultTableConfig.cellsAllignment,
-          padding: padding ?? _defaultTableConfig.cellsPadding,
-        );
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final configs = TableDefaultConfig.of(context);
+
+    return Container(
+      alignment: alignment ??
+          configs?.cellsAllignment ??
+          _defaultTableConfig.cellsAllignment,
+      padding:
+          padding ?? configs?.cellsPadding ?? _defaultTableConfig.cellsPadding,
+      color: color,
+      child: data,
+    );
+  }
 }
 
 class CustomDataTableConfig {
