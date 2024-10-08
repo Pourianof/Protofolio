@@ -41,7 +41,7 @@ class _SideBarState extends State<SideBar> {
             }
           },
           child: Container(
-            color: isHovered ? Color.fromARGB(45, 175, 175, 175) : null,
+            color: isHovered ? const Color.fromARGB(45, 175, 175, 175) : null,
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             child: Row(
               children: [

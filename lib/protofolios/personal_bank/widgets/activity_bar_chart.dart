@@ -7,7 +7,7 @@ class ActivityBarChart extends StatelessWidget {
   ActivityBarChart({super.key});
 
   static const withdrawColor = Color.fromARGB(255, 24, 20, 243);
-  static const despositeColor = const Color.fromARGB(255, 22, 219, 203);
+  static const despositeColor = Color.fromARGB(255, 22, 219, 203);
 
   final faDays = ["شن", "یک", "دو", 'سه', "چه", "پن", "جم"];
 
@@ -51,7 +51,7 @@ class ActivityBarChart extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         color: Colors.white,
       ),
-      padding: EdgeInsets.all(25),
+      padding: const EdgeInsets.all(25),
       child: Column(
         children: [
           Row(

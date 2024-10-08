@@ -20,24 +20,24 @@ class CustomDataTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> _rows = [];
+    List<Widget> rows = [];
     if (dividerGenerator != null) {
-      for (int i = 0; i < rows.length; i++) {
-        _rows.add(rows[i]);
+      for (int i = 0; i < this.rows.length; i++) {
+        rows.add(this.rows[i]);
         final border = dividerGenerator!(i);
         if (border != null) {
-          _rows.add(
+          rows.add(
             _RowDivider(dividerStyle: border),
           );
         }
       }
     } else {
-      _rows = rows;
+      rows = this.rows;
     }
     return TableDefaultConfig(
       tableConfigs: configs ?? _defaultTableConfig,
       child: _CustomDataTableBase(
-        rows: _rows,
+        rows: rows,
       ),
     );
   }
@@ -57,7 +57,6 @@ abstract class _TableDividerBase extends SingleChildRenderObjectWidget {
 
 class _RowDivider extends _TableDividerBase {
   _RowDivider({
-    super.key,
     required super.dividerStyle,
   });
 
@@ -71,7 +70,6 @@ class _RenderRowDivider extends RenderProxyBox {}
 
 class _ColumnDivider extends _TableDividerBase {
   _ColumnDivider({
-    super.key,
     required super.dividerStyle,
   });
 
@@ -89,6 +87,8 @@ class _CustomDataTableBase extends MultiChildRenderObjectWidget {
 
   @override
   RenderObject createRenderObject(BuildContext context) {
+    print('Children: ${children}');
+
     final confs = TableDefaultConfig.of(context);
     final textDirection = Directionality.of(context);
     return _CustomDataTableRenderer(
@@ -121,7 +121,9 @@ class _CustomDataTableRenderer extends RenderBox
     while (child != null) {
       final childParentData = child.parentData as _CustomDataTableParentData;
 
+      var i = 0;
       if (child is _RenderCustomDataRow) {
+        print('index: ${i++}');
         final row = child;
         row.computeCellsSizes();
 
@@ -236,7 +238,6 @@ class CustomDataTableRow extends StatelessWidget {
 class _CustomDataRow extends MultiChildRenderObjectWidget {
   final EdgeInsets? padding;
   const _CustomDataRow({
-    super.key,
     required List<Widget> cells,
     this.padding,
   }) : super(children: cells);
@@ -300,7 +301,6 @@ class _RenderCustomDataRow extends RenderBox
     if (_cellSizes != null) {
       return _lastComputedSize;
     }
-    ;
     RenderBox? child = firstChild;
 
     final calculatedCellSizes = <int, Size>{};
@@ -490,7 +490,8 @@ class TableDefaultConfig extends InheritedWidget {
   }
 
   final CustomDataTableConfig? tableConfigs;
-  TableDefaultConfig({
+  const TableDefaultConfig({
+    super.key,
     this.tableConfigs,
     required super.child,
   });

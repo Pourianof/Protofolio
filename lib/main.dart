@@ -50,13 +50,13 @@ class _MyHomePageState extends State<MyProtofolio> {
             ),
           ),
           Container(
-            color: Color.fromARGB(166, 255, 255, 255),
+            color: const Color.fromARGB(166, 255, 255, 255),
             child: Row(
               textDirection: TextDirection.rtl,
               children: [
                 Container(
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(117, 228, 228, 228),
+                    color: const Color.fromARGB(117, 228, 228, 228),
                     borderRadius: BorderRadius.circular(5),
                   ),
                   margin:
@@ -66,7 +66,7 @@ class _MyHomePageState extends State<MyProtofolio> {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(117, 228, 228, 228),
+                    color: const Color.fromARGB(117, 228, 228, 228),
                     borderRadius: BorderRadius.circular(5),
                   ),
                   margin:

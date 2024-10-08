@@ -94,11 +94,11 @@ class _LastTransactionsState extends State<LastTransactions> {
             padding: const EdgeInsets.all(20.0),
             child: Theme(
               data: Theme.of(context).copyWith(
-                dividerTheme: DividerThemeData(color: Colors.red),
+                dividerTheme: const DividerThemeData(color: Colors.red),
               ),
               child: CustomDataTable(
                 configs: CustomDataTableConfig(
-                  rowPaddings: EdgeInsets.all(10),
+                  rowPaddings: const EdgeInsets.all(10),
                   cellsAllignment: Alignment.centerRight,
                 ),
                 dividerGenerator: (index) {
@@ -119,43 +119,43 @@ class _LastTransactionsState extends State<LastTransactions> {
                   const CustomDataTableRow(
                     cells: [
                       CustomDataCell(
-                        data: const Text(
+                        data: Text(
                           'توضیحات',
                           style: headStyle,
                         ),
                       ),
                       CustomDataCell(
-                        data: const Text(
+                        data: Text(
                           'شناسه',
                           style: headStyle,
                         ),
                       ),
                       CustomDataCell(
-                        data: const Text(
+                        data: Text(
                           'نوع',
                           style: headStyle,
                         ),
                       ),
                       CustomDataCell(
-                        data: const Text(
+                        data: Text(
                           'شماره کارت',
                           style: headStyle,
                         ),
                       ),
                       CustomDataCell(
-                        data: const Text(
+                        data: Text(
                           'تاریخ',
                           style: headStyle,
                         ),
                       ),
                       CustomDataCell(
-                        data: const Text(
+                        data: Text(
                           'مقدار',
                           style: headStyle,
                         ),
                       ),
                       CustomDataCell(
-                        data: const Text(
+                        data: Text(
                           'رسید',
                           style: headStyle,
                         ),
@@ -252,7 +252,7 @@ class _LastTransactionsState extends State<LastTransactions> {
               const SizedBox(
                 width: 5,
               ),
-              ActiveLink("بعد >"),
+              const ActiveLink("بعد >"),
             ],
           ),
         ),

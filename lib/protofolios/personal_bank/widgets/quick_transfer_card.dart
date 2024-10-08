@@ -69,7 +69,7 @@ class QuickTransferCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  child: Icon(Icons.keyboard_arrow_left_rounded),
+                  child: const Icon(Icons.keyboard_arrow_left_rounded),
                 ),
               ],
             ),
@@ -85,11 +85,11 @@ class QuickTransferCard extends StatelessWidget {
                 ),
                 Expanded(
                   child: Container(
-                    padding: EdgeInsets.only(right: 15),
+                    padding: const EdgeInsets.only(right: 15),
                     height: 50,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(50),
-                      color: Color.fromARGB(255, 237, 241, 247),
+                      color: const Color.fromARGB(255, 237, 241, 247),
                     ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
