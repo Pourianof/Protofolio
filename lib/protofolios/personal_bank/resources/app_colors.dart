@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   static const mainLightGrey = Color.fromARGB(255, 113, 142, 191);
-  static const mainLightGrey_200 = Color.fromARGB(255, 223, 229, 238);
+  static const mainLightGrey_200 = Color.fromARGB(255, 177, 177, 177);
   static const mainLightGrey_100 = Color.fromARGB(255, 237, 240, 247);
+
 
   static const navi_blue = Color.fromARGB(255, 18, 49, 136);
 

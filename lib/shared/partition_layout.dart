@@ -44,15 +44,19 @@ class PartitionLayout extends StatelessWidget {
       }
     }
 
+    final isBounded = partition.height != null;
+    final padding = 40.toDouble();
     return Container(
       height: partition.height,
-      padding: const EdgeInsets.only(
-        bottom: 20,
-        left: 20,
-        right: 20,
-        top: 20,
+      padding: EdgeInsets.only(
+        bottom: padding / 2,
+        left: padding,
+        right: padding,
+        top: padding / 2,
       ),
       child: Row(
+        crossAxisAlignment:
+            isBounded ? CrossAxisAlignment.stretch : CrossAxisAlignment.center,
         children: items,
       ),
     );

@@ -21,7 +21,7 @@ class CreditCardsList extends StatelessWidget {
           flex: 50,
           fit: FlexFit.tight,
           child: CreditCard(
-            isActive: true,
+            styleTheme: CreaditCardStyleTheme.active,
           ),
         ),
         SizedBox(

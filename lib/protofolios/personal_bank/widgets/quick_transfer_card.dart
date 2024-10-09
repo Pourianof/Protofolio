@@ -26,29 +26,32 @@ class QuickTransferCard extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: contacts
-                        .map(
-                          (contact) => Column(
-                            children: [
-                              Container(
-                                clipBehavior: Clip.antiAlias,
-                                width: 60,
-                                height: 60,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(100)),
-                                child: FittedBox(
-                                  fit: BoxFit.cover,
-                                  child: Image.asset(contact.avatarURL),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: contacts
+                          .map(
+                            (contact) => Column(
+                              children: [
+                                Container(
+                                  clipBehavior: Clip.antiAlias,
+                                  width: 60,
+                                  height: 60,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(100)),
+                                  child: FittedBox(
+                                    fit: BoxFit.cover,
+                                    child: Image.asset(contact.avatarURL),
+                                  ),
                                 ),
-                              ),
-                              Text(contact.fullName),
-                              Text(contact.description)
-                            ],
-                          ),
-                        )
-                        .toList(),
+                                Text(contact.fullName),
+                                Text(contact.description)
+                              ],
+                            ),
+                          )
+                          .toList(),
+                    ),
                   ),
                 ),
                 const SizedBox(

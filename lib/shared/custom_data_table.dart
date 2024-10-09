@@ -87,8 +87,6 @@ class _CustomDataTableBase extends MultiChildRenderObjectWidget {
 
   @override
   RenderObject createRenderObject(BuildContext context) {
-    print('Children: ${children}');
-
     final confs = TableDefaultConfig.of(context);
     final textDirection = Directionality.of(context);
     return _CustomDataTableRenderer(
@@ -121,9 +119,7 @@ class _CustomDataTableRenderer extends RenderBox
     while (child != null) {
       final childParentData = child.parentData as _CustomDataTableParentData;
 
-      var i = 0;
       if (child is _RenderCustomDataRow) {
-        print('index: ${i++}');
         final row = child;
         row.computeCellsSizes();
 

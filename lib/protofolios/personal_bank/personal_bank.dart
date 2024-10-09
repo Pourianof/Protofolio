@@ -16,11 +16,31 @@ class PersonalBank extends StatelessWidget {
   Widget build(BuildContext context) {
     return Theme(
       data: ThemeData(
+        cardTheme: CardTheme(
+          color: Colors.white,
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(25),
+          ),
+        ),
         textTheme: const TextTheme(
           bodyMedium: TextStyle(fontSize: 14),
           titleMedium: TextStyle(
             fontSize: 16,
             color: AppColors.navi_blue,
+            fontWeight: FontWeight.bold,
+          ),
+          bodySmall: TextStyle(
+            fontSize: 16,
+            color: Color.fromARGB(255, 113, 142, 191),
+          ),
+          labelSmall: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w100,
+            color: Color.fromARGB(255, 113, 142, 191),
+          ),
+          titleLarge: TextStyle(
+            fontSize: 25,
             fontWeight: FontWeight.bold,
           ),
         ),

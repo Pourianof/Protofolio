@@ -14,6 +14,19 @@ class MediumTitle extends StatelessWidget {
   }
 }
 
+class LargeTitle extends StatelessWidget {
+  final String text;
+  const LargeTitle(this.text, {super.key, required});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      style: Theme.of(context).textTheme.titleLarge,
+      text,
+    );
+  }
+}
+
 class ActiveLink extends StatelessWidget {
   final String text;
   const ActiveLink(this.text, {super.key, required});

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:my_portfolio/protofolios/personal_bank/views/accounts/accounts.dart';
 import 'package:my_portfolio/protofolios/personal_bank/views/transactions.dart';
 import '../views/dashboard.dart';
 
@@ -38,10 +39,7 @@ class _MainViewState extends State<MainView> {
         Expanded(
           child: IndexedStack(
             index: displayingViewIndex,
-            children: const [
-              Dashboard(),
-              Transactions(),
-            ],
+            children: const [Dashboard(), Transactions(), AccountView()],
           ),
         )
       ],
