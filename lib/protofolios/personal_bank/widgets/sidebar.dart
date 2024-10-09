@@ -162,18 +162,32 @@ class _SideBarState extends State<SideBar> {
         ),
       ),
       child: Container(
-        color: Colors.white,
+        decoration: const BoxDecoration(
+          border: Border(
+            left: BorderSide(
+              color: AppColors.borderColor,
+            ),
+          ),
+          color: Colors.white,
+        ),
         child: SizedBox(
           width: 250,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const SizedBox(
                 height: 80,
                 child: Center(
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       // icon
-                      Text('بانک شخصی')
+                      Text(
+                          style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          'بانک شخصی')
                     ],
                   ),
                 ),

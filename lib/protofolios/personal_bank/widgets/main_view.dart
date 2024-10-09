@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:my_portfolio/protofolios/personal_bank/resources/app_colors.dart';
 import 'package:my_portfolio/protofolios/personal_bank/resources/bank_icons.dart';
 import 'package:my_portfolio/protofolios/personal_bank/views/accounts/accounts.dart';
 import 'package:my_portfolio/protofolios/personal_bank/views/transactions.dart';
@@ -55,7 +56,12 @@ class MainViewTopBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 80,
-      color: const Color.fromRGBO(255, 255, 255, 1),
+      decoration: const BoxDecoration(
+        border: Border(
+          bottom: BorderSide(color: AppColors.borderColor),
+        ),
+        color: Colors.white,
+      ),
       child: Theme(
         data: ThemeData(
           colorScheme: const ColorScheme(
