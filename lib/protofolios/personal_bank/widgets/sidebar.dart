@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_portfolio/protofolios/personal_bank/resources/app_colors.dart';
+import 'package:my_portfolio/protofolios/personal_bank/resources/bank_icons.dart';
 
 class SideBar extends StatefulWidget {
   final Sink<int> newIndexSink;
@@ -46,22 +48,27 @@ class _SideBarState extends State<SideBar> {
             child: Row(
               children: [
                 icon != null
-                    ? Icon(
-                        icon,
-                        color: index == selectedItemIndex
-                            ? selectedColor
-                            : isHovered
-                                ? hoveredColor
-                                : null,
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25),
+                        child: Icon(
+                          size: 25,
+                          icon,
+                          color: index == selectedItemIndex
+                              ? selectedColor
+                              : isHovered
+                                  ? hoveredColor
+                                  : null,
+                        ),
                       )
                     : Container(),
                 Text(
                   style: TextStyle(
+                    fontSize: 18,
                     color: index == selectedItemIndex
                         ? selectedColor
                         : isHovered
                             ? hoveredColor
-                            : null,
+                            : AppColors.mainLightGrey_200,
                   ),
                   name,
                   // style: Theme.of(context).textTheme.bodyMedium,
@@ -101,35 +108,39 @@ class _SideBarState extends State<SideBar> {
   List<Map<String, dynamic>> items = [
     {
       "name": "داشبورد",
-      "icon": Icons.home_rounded,
+      "icon": BankIcons.home,
     },
     {
       "name": "تراکنش ها",
-      "icon": Icons.money_off_rounded,
+      "icon": BankIcons.transactions,
     },
     {
       "name": "حساب ها",
-      "icon": Icons.person,
+      "icon": BankIcons.account,
     },
     {
       "name": "سرمایه گذاری",
-      "icon": Icons.addchart_rounded,
+      "icon": BankIcons.invest,
     },
     {
-      "name": "داشبورد",
-      "icon": Icons.currency_pound_outlined,
+      "name": "کارت‌های اعتباری",
+      "icon": BankIcons.creditCard,
+    },
+    {
+      "name": "وام ها",
+      "icon": BankIcons.income,
     },
     {
       "name": "خدمات",
-      "icon": Icons.electrical_services,
+      "icon": BankIcons.services,
     },
     {
       "name": "دسترسی های من",
-      "icon": Icons.local_activity_outlined,
+      "icon": BankIcons.privilage,
     },
     {
       "name": "تنظیمات",
-      "icon": Icons.settings,
+      "icon": BankIcons.settingFill,
     }
   ];
 

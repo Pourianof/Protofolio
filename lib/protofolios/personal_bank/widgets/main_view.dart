@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:my_portfolio/protofolios/personal_bank/resources/bank_icons.dart';
 import 'package:my_portfolio/protofolios/personal_bank/views/accounts/accounts.dart';
 import 'package:my_portfolio/protofolios/personal_bank/views/transactions.dart';
 import '../views/dashboard.dart';
@@ -101,14 +102,17 @@ class MainViewTopBar extends StatelessWidget {
                     color: Theme.of(context).colorScheme.secondary,
                     borderRadius: BorderRadius.circular(100),
                   ),
-                  width: 200,
+                  width: 250,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Transform.flip(
-                        flipX: true,
-                        child: const Icon(
-                          Icons.search,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Transform.flip(
+                          flipX: true,
+                          child: const Icon(
+                            Icons.search,
+                          ),
                         ),
                       ),
                       Expanded(
@@ -137,7 +141,7 @@ class MainViewTopBar extends StatelessWidget {
                     borderRadius: BorderRadius.circular(100),
                   ),
                   child: IconButton(
-                    icon: const Icon(Icons.settings),
+                    icon: const Icon(BankIcons.services),
                     onPressed: () {},
                   ),
                 ),
@@ -150,7 +154,7 @@ class MainViewTopBar extends StatelessWidget {
                   ),
                   child: IconButton(
                     icon: const Icon(
-                      Icons.notifications_outlined,
+                      BankIcons.notif,
                       color: Colors.red,
                     ),
                     onPressed: () {},
