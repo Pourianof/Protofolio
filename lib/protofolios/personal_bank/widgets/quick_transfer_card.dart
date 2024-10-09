@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:my_portfolio/protofolios/personal_bank/resources/bank_icons.dart';
 
 class QuickTransferCard extends StatelessWidget {
   QuickTransferCard({super.key});
@@ -119,7 +120,10 @@ class QuickTransferCard extends StatelessWidget {
                               children: [
                                 Icon(
                                   color: Colors.white,
-                                  Icons.rocket,
+                                  BankIcons.paperRocket,
+                                ),
+                                SizedBox(
+                                  width: 15,
                                 ),
                                 Text(
                                   "ارسال",

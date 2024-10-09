@@ -107,11 +107,11 @@ class MainViewTopBar extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        padding: const EdgeInsets.only(left: 10, right: 20.0),
                         child: Transform.flip(
                           flipX: true,
                           child: const Icon(
-                            Icons.search,
+                            BankIcons.search,
                           ),
                         ),
                       ),
@@ -141,7 +141,7 @@ class MainViewTopBar extends StatelessWidget {
                     borderRadius: BorderRadius.circular(100),
                   ),
                   child: IconButton(
-                    icon: const Icon(BankIcons.services),
+                    icon: const Icon(BankIcons.settingsOutline),
                     onPressed: () {},
                   ),
                 ),
