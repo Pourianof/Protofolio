@@ -25,6 +25,10 @@ class PersonalBank extends StatelessWidget {
         ),
         textTheme: const TextTheme(
           bodyMedium: TextStyle(fontSize: 14),
+          labelLarge: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          ),
           titleMedium: TextStyle(
             fontSize: 16,
             color: AppColors.navi_blue,

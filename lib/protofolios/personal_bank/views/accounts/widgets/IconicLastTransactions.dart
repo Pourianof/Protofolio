@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_portfolio/protofolios/personal_bank/models/colored_icon.dart';
 import 'package:my_portfolio/protofolios/personal_bank/models/transaction.dart';
-import 'package:my_portfolio/protofolios/personal_bank/views/accounts/widgets/icon_link.dart';
+import 'package:my_portfolio/protofolios/personal_bank/widgets/icon_link.dart';
 import 'package:my_portfolio/protofolios/personal_bank/widgets/amount_text.dart';
 import 'package:my_portfolio/protofolios/personal_bank/widgets/bank_card.dart';
 import 'package:my_portfolio/protofolios/personal_bank/widgets/standard_texts.dart';

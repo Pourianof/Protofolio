@@ -45,15 +45,24 @@ class ActiveLink extends StatelessWidget {
 
 class NonActiveLink extends StatelessWidget {
   final String text;
-  const NonActiveLink(this.text, {super.key, required});
+  final TextStyle? style;
+  const NonActiveLink(this.text, {super.key, required, this.style});
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      style: const TextStyle(
+    TextStyle style;
+    if (this.style != null) {
+      style = this.style!.copyWith(
+            color: AppColors.mainLightGrey,
+          );
+    } else {
+      style = const TextStyle(
         color: AppColors.mainLightGrey,
         fontSize: 14,
-      ),
+      );
+    }
+    return Text(
+      style: style,
       text,
     );
   }

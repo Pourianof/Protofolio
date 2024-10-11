@@ -181,7 +181,11 @@ class _LastTransactionsState extends State<LastTransactions> {
                     CustomDataCell(
                         data: NumberText(textNumber: trx.cardNumber)),
                     CustomDataCell(data: Text(trx.date.toIso8601String())),
-                    CustomDataCell(data: AmountText(amount: trx.amount)),
+                    CustomDataCell(
+                        data: AmountText(
+                      amount: trx.amount,
+                      suffix: '\$',
+                    )),
                     CustomDataCell(
                       data: Container(
                         padding: const EdgeInsets.symmetric(

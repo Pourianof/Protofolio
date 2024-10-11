@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_portfolio/protofolios/helpers/utils.dart';
 
 class NumberText extends StatelessWidget {
   final double? number;
@@ -11,7 +12,7 @@ class NumberText extends StatelessWidget {
     return Directionality(
       textDirection: TextDirection.ltr,
       child: Text(
-        "${number ?? textNumber}",
+        "${number != null ? toCommaSeperated(number!) : textNumber}",
         style: style,
       ),
     );

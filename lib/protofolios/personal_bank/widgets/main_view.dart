@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:my_portfolio/protofolios/personal_bank/resources/app_colors.dart';
 import 'package:my_portfolio/protofolios/personal_bank/resources/bank_icons.dart';
 import 'package:my_portfolio/protofolios/personal_bank/views/accounts/accounts.dart';
+import 'package:my_portfolio/protofolios/personal_bank/views/investments/investments.dart';
 import 'package:my_portfolio/protofolios/personal_bank/views/transactions.dart';
 import '../views/dashboard.dart';
 
@@ -41,7 +42,12 @@ class _MainViewState extends State<MainView> {
         Expanded(
           child: IndexedStack(
             index: displayingViewIndex,
-            children: const [Dashboard(), Transactions(), AccountView()],
+            children: const [
+              Dashboard(),
+              Transactions(),
+              AccountView(),
+              Investments()
+            ],
           ),
         )
       ],
