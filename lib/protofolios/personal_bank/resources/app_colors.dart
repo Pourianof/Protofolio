@@ -13,6 +13,9 @@ abstract final class AppColors {
 
   static const borderColor = Color.fromARGB(255, 230, 239, 245);
 
+  static const pink = Color.fromARGB(255, 255, 130, 172);
+
   static const chartYellow = Color.fromARGB(255, 237, 162, 13);
   static const chartCyan = Color.fromARGB(255, 22, 219, 203);
+  static const chartBlue = Color.fromARGB(255, 76, 121, 255);
 }

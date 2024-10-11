@@ -67,7 +67,6 @@ class Dashboard extends StatelessWidget {
               25,
             ),
           ],
-          null,
         ),
         PartitionRow(
           [
@@ -80,32 +79,33 @@ class Dashboard extends StatelessWidget {
               25,
             )
           ],
-          300,
+          height: 300,
         ),
         PartitionRow(
           [
             PartitionItem(const MediumTitle("فعالیت هفتگی"), 75),
             PartitionItem(const MediumTitle("تاریخچه موجودی"), 25),
           ],
-          null,
         ),
         PartitionRow(
           [
             PartitionItem(ActivityBarChart(), 75),
             PartitionItem(const ExpensesStatistics(), 25),
           ],
-          400,
+          height: 400,
         ),
-        PartitionRow([
-          PartitionItem(const MediumTitle("انتقال سریع"), 35),
-          PartitionItem(const MediumTitle("تاریخچه موجودی"), 65),
-        ], null),
+        PartitionRow(
+          [
+            PartitionItem(const MediumTitle("انتقال سریع"), 35),
+            PartitionItem(const MediumTitle("تاریخچه موجودی"), 65),
+          ],
+        ),
         PartitionRow(
           [
             PartitionItem(QuickTransferCard(), 35),
             PartitionItem(BalanceHistoryChartCard(), 65),
           ],
-          350,
+          height: 350,
         ),
       ],
     );

@@ -11,7 +11,10 @@ class PartitionRow {
   final List<PartitionItem> items;
 
   final double? height;
-  PartitionRow(this.items, this.height);
+  PartitionRow(
+    this.items, {
+    this.height,
+  });
 }
 
 class PartitionLayout extends StatelessWidget {
@@ -46,6 +49,7 @@ class PartitionLayout extends StatelessWidget {
 
     final isBounded = partition.height != null;
     final padding = 40.toDouble();
+
     return Container(
       height: partition.height,
       padding: EdgeInsets.only(

@@ -20,7 +20,6 @@ class AccountView extends StatelessWidget {
           [
             PartitionItem(AcountSummary(), 100),
           ],
-          null,
         ),
         PartitionRow(
           [
@@ -36,7 +35,6 @@ class AccountView extends StatelessWidget {
               40,
             ),
           ],
-          null,
         ),
         PartitionRow(
           [
@@ -48,16 +46,21 @@ class AccountView extends StatelessWidget {
               30,
             )
           ],
-          300,
+          height: 300,
         ),
-        PartitionRow([
-          PartitionItem(MediumTitle("چشم انداز اعتبار و بدهی"), 60),
-          PartitionItem(MediumTitle("صورت حساب"), 40),
-        ], null),
-        PartitionRow([
-          PartitionItem(DebitAndCreditChart(), 70),
-          PartitionItem(InvoicesSent(), 30)
-        ], 400)
+        PartitionRow(
+          [
+            PartitionItem(MediumTitle("چشم انداز اعتبار و بدهی"), 60),
+            PartitionItem(MediumTitle("صورت حساب"), 40),
+          ],
+        ),
+        PartitionRow(
+          [
+            PartitionItem(DebitAndCreditChart(), 70),
+            PartitionItem(InvoicesSent(), 30)
+          ],
+          height: 400,
+        )
       ],
     );
   }

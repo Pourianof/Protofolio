@@ -29,7 +29,6 @@ class Transactions extends StatelessWidget {
               25,
             ),
           ],
-          null,
         ),
         PartitionRow(
           [
@@ -42,7 +41,7 @@ class Transactions extends StatelessWidget {
               25,
             )
           ],
-          300,
+          height: 300,
         ),
         PartitionRow(
           [
@@ -51,7 +50,6 @@ class Transactions extends StatelessWidget {
               100,
             ),
           ],
-          null,
         ),
         PartitionRow(
           [
@@ -60,7 +58,6 @@ class Transactions extends StatelessWidget {
               100,
             ),
           ],
-          null,
         ),
       ],
     );

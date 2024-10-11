@@ -16,6 +16,46 @@ class PersonalBank extends StatelessWidget {
   Widget build(BuildContext context) {
     return Theme(
       data: ThemeData(
+        inputDecorationTheme: const InputDecorationTheme(
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(15),
+            ),
+            borderSide: BorderSide(
+              color: AppColors.borderColor,
+              width: 1,
+              style: BorderStyle.solid,
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(15),
+            ),
+            borderSide: BorderSide(
+              color: AppColors.mainLightGrey,
+              width: 1,
+              style: BorderStyle.solid,
+            ),
+          ),
+        ),
+        elevatedButtonTheme: const ElevatedButtonThemeData(
+          style: ButtonStyle(
+              backgroundColor: WidgetStatePropertyAll(AppColors.darkBlue),
+              textStyle: WidgetStatePropertyAll(
+                TextStyle(color: Colors.white),
+              ),
+              padding: WidgetStatePropertyAll(
+                EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+              ),
+              foregroundColor: WidgetStatePropertyAll(Colors.white),
+              shape: WidgetStatePropertyAll(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10.0),
+                  ),
+                ),
+              )),
+        ),
         cardTheme: CardTheme(
           color: Colors.white,
           elevation: 0,

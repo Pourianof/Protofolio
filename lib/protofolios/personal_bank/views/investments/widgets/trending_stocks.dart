@@ -6,7 +6,6 @@ import 'package:my_portfolio/protofolios/personal_bank/widgets/bank_card.dart';
 import 'package:my_portfolio/protofolios/personal_bank/widgets/standard_texts.dart';
 import 'package:my_portfolio/shared/custom_data_table.dart';
 import 'package:my_portfolio/protofolios/personal_bank/static_data/stocks.dart';
-import 'package:my_portfolio/utils/number_text.dart';
 
 class TrendingStocks extends StatelessWidget {
   const TrendingStocks({super.key});

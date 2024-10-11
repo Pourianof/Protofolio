@@ -14,29 +14,34 @@ class Investments extends StatelessWidget {
   Widget build(BuildContext context) {
     return PartitionLayout(
       partitions: [
-        PartitionRow([PartitionItem(InvestmentsSummary(), 100)], null),
+        PartitionRow(
+          [PartitionItem(InvestmentsSummary(), 100)],
+        ),
         PartitionRow(
           [
             PartitionItem(const MediumTitle("کل سرمایه گذاری سالانه"), 50),
             PartitionItem(const MediumTitle("درآمد ماهانه"), 50)
           ],
-          null,
         ),
-        PartitionRow([
-          PartitionItem(const YearlyTotalInvestment(), 50),
-          PartitionItem(const MonthlyRevenue(), 50)
-        ], 400),
+        PartitionRow(
+          [
+            PartitionItem(const YearlyTotalInvestment(), 50),
+            PartitionItem(const MonthlyRevenue(), 50)
+          ],
+          height: 400,
+        ),
         PartitionRow(
           [
             PartitionItem(const MediumTitle("سرمایه گذاری"), 65),
             PartitionItem(const MediumTitle("سهام های محبوب"), 35)
           ],
-          null,
         ),
-        PartitionRow([
-          PartitionItem(const InvestmentsList(), 65),
-          PartitionItem(const TrendingStocks(), 35),
-        ], null)
+        PartitionRow(
+          [
+            PartitionItem(const InvestmentsList(), 65),
+            PartitionItem(const TrendingStocks(), 35),
+          ],
+        )
       ],
     );
   }
