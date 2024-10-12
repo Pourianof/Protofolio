@@ -5,7 +5,7 @@ import 'package:my_portfolio/protofolios/personal_bank/views/accounts/widgets/de
 import 'package:my_portfolio/protofolios/personal_bank/views/accounts/widgets/invoices_sent.dart';
 import 'package:my_portfolio/protofolios/personal_bank/widgets/creadit_card.dart';
 import 'package:my_portfolio/protofolios/personal_bank/widgets/standard_texts.dart';
-import 'package:my_portfolio/shared/partition_layout.dart';
+import 'package:my_portfolio/shared/partition_layout/partition_layout.dart';
 import 'package:my_portfolio/utils/number_text.dart';
 import 'package:my_portfolio/protofolios/personal_bank/widgets/bank_card.dart';
 

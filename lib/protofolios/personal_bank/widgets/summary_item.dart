@@ -8,16 +8,40 @@ import 'package:my_portfolio/utils/number_text.dart';
 class SummaryItem extends StatelessWidget {
   final ColoredIcon icon;
   final String title;
-  final String amount;
-  const SummaryItem({
+  final String? amount;
+  final String? subtitle;
+  final bool titleReverseOrder;
+  SummaryItem({
     super.key,
-    required this.amount,
     required this.icon,
     required this.title,
-  });
+    this.amount,
+    this.subtitle,
+    this.titleReverseOrder = false,
+  }) {
+    if (amount == null && subtitle == null) {
+      throw Exception(
+          "amount and subtitle are both null. Either one must specified.");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    final titleCol = [
+      NonActiveLink(title),
+      const SizedBox(
+        height: 5,
+      ),
+      subtitle != null
+          ? Text(
+              subtitle!,
+              style: Theme.of(context).textTheme.bodyLarge,
+            )
+          : NumberText(
+              textNumber: amount,
+              style: Theme.of(context).textTheme.labelLarge,
+            ),
+    ];
     return BankCard(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -30,16 +54,7 @@ class SummaryItem extends StatelessWidget {
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              NonActiveLink(title),
-              const SizedBox(
-                height: 5,
-              ),
-              NumberText(
-                textNumber: amount,
-                style: Theme.of(context).textTheme.labelLarge,
-              ),
-            ],
+            children: titleReverseOrder ? titleCol.reversed.toList() : titleCol,
           )
         ],
       ),

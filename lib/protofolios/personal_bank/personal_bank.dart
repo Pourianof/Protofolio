@@ -2,8 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:my_portfolio/protofolios/personal_bank/resources/app_colors.dart';
+import 'package:my_portfolio/protofolios/personal_bank/resources/app_styles.dart';
 import 'package:my_portfolio/protofolios/personal_bank/widgets/main_view.dart';
 import 'package:my_portfolio/protofolios/personal_bank/widgets/sidebar.dart';
+import 'package:my_portfolio/shared/partition_layout/partion_layout_theme.dart';
+import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class PersonalBank extends StatelessWidget {
@@ -74,12 +77,12 @@ class PersonalBank extends StatelessWidget {
         cardTheme: CardTheme(
           color: Colors.white,
           elevation: 0,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(25),
-          ),
+          shape:
+              RoundedRectangleBorder(borderRadius: AppStyles.cardBorderRadius),
         ),
         textTheme: const TextTheme(
           bodyMedium: TextStyle(fontSize: 16),
+          bodyLarge: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           labelLarge: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 20,
@@ -105,21 +108,32 @@ class PersonalBank extends StatelessWidget {
         ),
         scaffoldBackgroundColor: AppColors.backgroundColor,
       ),
-      child: Directionality(
-        textDirection: TextDirection.rtl,
-        child: Scaffold(
-          backgroundColor: AppColors.backgroundColor,
-          body: Row(
-            children: [
-              SideBar(
-                newIndexSink: sideViewChannel.sink,
-              ),
-              Expanded(
-                child: MainView(
-                  indexDistpacher: sideViewChannel.stream,
+      child: Provider<PartionLayoutTheme>(
+        create: (context) {
+          return PartionLayoutTheme(
+            rowInsets: const EdgeInsets.symmetric(
+              horizontal: 40,
+              vertical: 10,
+            ),
+            partionItemGap: 30,
+          );
+        },
+        child: Directionality(
+          textDirection: TextDirection.rtl,
+          child: Scaffold(
+            backgroundColor: AppColors.backgroundColor,
+            body: Row(
+              children: [
+                SideBar(
+                  newIndexSink: sideViewChannel.sink,
                 ),
-              ),
-            ],
+                Expanded(
+                  child: MainView(
+                    indexDistpacher: sideViewChannel.stream,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

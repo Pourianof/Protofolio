@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_portfolio/protofolios/personal_bank/resources/app_styles.dart';
 
 class BankCard extends StatelessWidget {
   final Widget child;
@@ -8,7 +9,7 @@ class BankCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 25),
+        padding: AppStyles.cardPadding,
         child: child,
       ),
     );

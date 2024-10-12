@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_portfolio/protofolios/personal_bank/widgets/credit_cards_list.dart';
 import 'package:my_portfolio/protofolios/personal_bank/widgets/standard_texts.dart';
-import 'package:my_portfolio/shared/partition_layout.dart';
+import 'package:my_portfolio/shared/partition_layout/partition_layout.dart';
 import '../widgets/transaction_box.dart';
 import '../widgets/activity_bar_chart.dart';
 import '../widgets/expenses_statistics.dart';

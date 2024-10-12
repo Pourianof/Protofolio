@@ -6,7 +6,7 @@ import 'package:my_portfolio/protofolios/personal_bank/resources/bank_icons.dart
 import 'package:my_portfolio/protofolios/personal_bank/views/loans/widgets/active_loans_overview.dart';
 import 'package:my_portfolio/protofolios/personal_bank/widgets/standard_texts.dart';
 import 'package:my_portfolio/protofolios/personal_bank/widgets/summary_item.dart';
-import 'package:my_portfolio/shared/partition_layout.dart';
+import 'package:my_portfolio/shared/partition_layout/partition_layout.dart';
 
 class Loans extends StatelessWidget {
   const Loans({super.key});

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_portfolio/shared/partition_layout/partion_layout_theme.dart';
+import 'package:provider/provider.dart';
 
 class PartitionItem {
   final Widget widget;
@@ -19,10 +21,12 @@ class PartitionRow {
 
 class PartitionLayout extends StatelessWidget {
   final List<PartitionRow> partitions;
-  const PartitionLayout({
+  PartitionLayout({
     super.key,
     required this.partitions,
   });
+
+  late PartionLayoutTheme _themeData;
 
   Widget makeARow(PartitionRow partition) {
     final List<Widget> items = [];
@@ -40,24 +44,18 @@ class PartitionLayout extends StatelessWidget {
 
       if (i != partition.items.length - 1) {
         items.add(
-          const SizedBox(
-            width: 20,
+          SizedBox(
+            width: _themeData.partionItemGap,
           ),
         );
       }
     }
 
     final isBounded = partition.height != null;
-    final padding = 40.toDouble();
 
     return Container(
       height: partition.height,
-      padding: EdgeInsets.only(
-        bottom: padding / 2,
-        left: padding,
-        right: padding,
-        top: padding / 2,
-      ),
+      padding: _themeData.rowInsets,
       child: Row(
         crossAxisAlignment:
             isBounded ? CrossAxisAlignment.stretch : CrossAxisAlignment.center,
@@ -68,10 +66,15 @@ class PartitionLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: partitions.map(makeARow).toList(),
-      ),
+    return Consumer<PartionLayoutTheme>(
+      builder: (context, value, child) {
+        _themeData = value;
+        return SingleChildScrollView(
+          child: Column(
+            children: partitions.map(makeARow).toList(),
+          ),
+        );
+      },
     );
   }
 }

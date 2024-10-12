@@ -7,6 +7,7 @@ import 'package:my_portfolio/protofolios/personal_bank/views/accounts/accounts.d
 import 'package:my_portfolio/protofolios/personal_bank/views/investments/investments.dart';
 import 'package:my_portfolio/protofolios/personal_bank/views/loans/loans.dart';
 import 'package:my_portfolio/protofolios/personal_bank/views/my_cards/my_cards.dart';
+import 'package:my_portfolio/protofolios/personal_bank/views/services/srvices.dart';
 import 'package:my_portfolio/protofolios/personal_bank/views/transactions.dart';
 import '../views/dashboard.dart';
 
@@ -51,6 +52,7 @@ class _MainViewState extends State<MainView> {
               Investments(),
               MyCards(),
               Loans(),
+              Srvices(),
             ],
           ),
         )

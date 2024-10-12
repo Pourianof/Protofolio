@@ -5,7 +5,7 @@ import 'package:my_portfolio/protofolios/personal_bank/views/my_cards/widgets/ca
 import 'package:my_portfolio/protofolios/personal_bank/views/my_cards/widgets/credit_card_statistics.dart';
 import 'package:my_portfolio/protofolios/personal_bank/widgets/creadit_card.dart';
 import 'package:my_portfolio/protofolios/personal_bank/widgets/standard_texts.dart';
-import 'package:my_portfolio/shared/partition_layout.dart';
+import 'package:my_portfolio/shared/partition_layout/partition_layout.dart';
 
 class MyCards extends StatelessWidget {
   const MyCards({super.key});

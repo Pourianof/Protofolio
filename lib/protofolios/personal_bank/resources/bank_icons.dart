@@ -38,4 +38,6 @@ abstract final class BankIcons {
   static const IconData teslaInc = IconData(0xe924, fontFamily: 'Bank');
   static const IconData totalSave = IconData(0xe925, fontFamily: 'Bank');
   static const IconData user = IconData(0xe926, fontFamily: 'Bank');
+  static const IconData insurance = IconData(0xe928, fontFamily: 'Bank');
+  static const IconData bag = IconData(0xe929, fontFamily: 'Bank');
 }

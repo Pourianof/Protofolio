@@ -5,7 +5,7 @@ import 'package:my_portfolio/protofolios/personal_bank/views/investments/widgets
 import 'package:my_portfolio/protofolios/personal_bank/views/investments/widgets/trending_stocks.dart';
 import 'package:my_portfolio/protofolios/personal_bank/views/investments/widgets/yearly_total_investment.dart';
 import 'package:my_portfolio/protofolios/personal_bank/widgets/standard_texts.dart';
-import 'package:my_portfolio/shared/partition_layout.dart';
+import 'package:my_portfolio/shared/partition_layout/partition_layout.dart';
 
 class Investments extends StatelessWidget {
   const Investments({super.key});
