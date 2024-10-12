@@ -1,51 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:my_portfolio/protofolios/personal_bank/models/colored_icon.dart';
 import 'package:my_portfolio/protofolios/personal_bank/resources/bank_icons.dart';
-import 'package:my_portfolio/protofolios/personal_bank/widgets/bank_card.dart';
-import 'package:my_portfolio/protofolios/personal_bank/widgets/icon_link.dart';
-import 'package:my_portfolio/protofolios/personal_bank/widgets/standard_texts.dart';
-import 'package:my_portfolio/utils/number_text.dart';
+import 'package:my_portfolio/protofolios/personal_bank/widgets/summary_item.dart';
 
 // ignore: must_be_immutable
 class InvestmentsSummary extends StatelessWidget {
   InvestmentsSummary({super.key});
 
-  late BuildContext _currentContext;
   _generateSummaryItem(ColoredIcon icon, String title, String amount) {
     return Flexible(
-      flex: 1,
-      child: BankCard(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            IconLink(
-              icon: icon,
-            ),
-            const SizedBox(
-              width: 15,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                NonActiveLink(title),
-                const SizedBox(
-                  height: 5,
-                ),
-                NumberText(
-                  textNumber: amount,
-                  style: Theme.of(_currentContext).textTheme.labelLarge,
-                ),
-              ],
-            )
-          ],
-        ),
-      ),
-    );
+        flex: 1, child: SummaryItem(amount: amount, icon: icon, title: title));
   }
 
   @override
   Widget build(BuildContext context) {
-    _currentContext = context;
     return Row(
       children: [
         _generateSummaryItem(

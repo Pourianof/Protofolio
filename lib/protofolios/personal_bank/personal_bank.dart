@@ -38,6 +38,21 @@ class PersonalBank extends StatelessWidget {
             ),
           ),
         ),
+        outlinedButtonTheme: const OutlinedButtonThemeData(
+          style: ButtonStyle(
+              side: WidgetStatePropertyAll(
+                BorderSide(
+                  color: Colors.black,
+                  width: 1,
+                ),
+              ),
+              foregroundColor: WidgetStatePropertyAll(Colors.black),
+              textStyle: WidgetStatePropertyAll(
+                TextStyle(
+                  fontWeight: FontWeight.normal,
+                ),
+              )),
+        ),
         elevatedButtonTheme: const ElevatedButtonThemeData(
           style: ButtonStyle(
               backgroundColor: WidgetStatePropertyAll(AppColors.darkBlue),
@@ -64,7 +79,7 @@ class PersonalBank extends StatelessWidget {
           ),
         ),
         textTheme: const TextTheme(
-          bodyMedium: TextStyle(fontSize: 14),
+          bodyMedium: TextStyle(fontSize: 16),
           labelLarge: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 20,
