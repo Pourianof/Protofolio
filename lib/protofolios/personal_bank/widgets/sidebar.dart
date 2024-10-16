@@ -1,9 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:my_portfolio/protofolios/personal_bank/models/main_view_event.dart';
 import 'package:my_portfolio/protofolios/personal_bank/resources/app_colors.dart';
 import 'package:my_portfolio/protofolios/personal_bank/resources/bank_icons.dart';
 
+List<Map<String, dynamic>> items = [
+  {
+    "name": "داشبورد",
+    "icon": BankIcons.home,
+  },
+  {
+    "name": "تراکنش ها",
+    "icon": BankIcons.transactions,
+  },
+  {
+    "name": "حساب ها",
+    "icon": BankIcons.account,
+  },
+  {
+    "name": "سرمایه گذاری",
+    "icon": BankIcons.invest,
+  },
+  {
+    "name": "کارت‌های اعتباری",
+    "icon": BankIcons.creditCard,
+  },
+  {
+    "name": "وام ها",
+    "icon": BankIcons.income,
+  },
+  {
+    "name": "خدمات",
+    "icon": BankIcons.services,
+  },
+  {
+    "name": "دسترسی های من",
+    "icon": BankIcons.privilage,
+  },
+  {
+    "name": "تنظیمات",
+    "icon": BankIcons.settingFill,
+  }
+];
+
 class SideBar extends StatefulWidget {
-  final Sink<int> newIndexSink;
+  final Sink<MainViewEvent> newIndexSink;
   const SideBar({super.key, required this.newIndexSink});
 
   @override
@@ -35,11 +75,16 @@ class _SideBarState extends State<SideBar> {
         }),
         child: InkWell(
           onTap: () {
-            if (index != selectedItemIndex) {
+            if (index != selectedItemIndex && index != 7) {
               setState(() {
                 selectedItemIndex = index;
               });
-              widget.newIndexSink.add(index);
+              widget.newIndexSink.add(
+                MainViewEvent(
+                  index: index,
+                  title: items[index]["name"],
+                ),
+              );
             }
           },
           child: Container(
@@ -104,45 +149,6 @@ class _SideBarState extends State<SideBar> {
       children: stackChildren,
     );
   }
-
-  List<Map<String, dynamic>> items = [
-    {
-      "name": "داشبورد",
-      "icon": BankIcons.home,
-    },
-    {
-      "name": "تراکنش ها",
-      "icon": BankIcons.transactions,
-    },
-    {
-      "name": "حساب ها",
-      "icon": BankIcons.account,
-    },
-    {
-      "name": "سرمایه گذاری",
-      "icon": BankIcons.invest,
-    },
-    {
-      "name": "کارت‌های اعتباری",
-      "icon": BankIcons.creditCard,
-    },
-    {
-      "name": "وام ها",
-      "icon": BankIcons.income,
-    },
-    {
-      "name": "خدمات",
-      "icon": BankIcons.services,
-    },
-    {
-      "name": "دسترسی های من",
-      "icon": BankIcons.privilage,
-    },
-    {
-      "name": "تنظیمات",
-      "icon": BankIcons.settingFill,
-    }
-  ];
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:my_portfolio/protofolios/personal_bank/models/main_view_event.dart';
+import 'package:my_portfolio/protofolios/personal_bank/providers/user_provider.dart';
 import 'package:my_portfolio/protofolios/personal_bank/resources/app_colors.dart';
 import 'package:my_portfolio/protofolios/personal_bank/resources/bank_icons.dart';
 import 'package:my_portfolio/protofolios/personal_bank/views/accounts/accounts.dart';
@@ -8,11 +10,13 @@ import 'package:my_portfolio/protofolios/personal_bank/views/investments/investm
 import 'package:my_portfolio/protofolios/personal_bank/views/loans/loans.dart';
 import 'package:my_portfolio/protofolios/personal_bank/views/my_cards/my_cards.dart';
 import 'package:my_portfolio/protofolios/personal_bank/views/services/srvices.dart';
+import 'package:my_portfolio/protofolios/personal_bank/views/settings_view/settings_view.dart';
 import 'package:my_portfolio/protofolios/personal_bank/views/transactions.dart';
+import 'package:provider/provider.dart';
 import '../views/dashboard.dart';
 
 class MainView extends StatefulWidget {
-  final Stream<int> indexDistpacher;
+  final Stream<MainViewEvent> indexDistpacher;
   const MainView({super.key, required this.indexDistpacher});
 
   @override
@@ -22,6 +26,7 @@ class MainView extends StatefulWidget {
 class _MainViewState extends State<MainView> {
   late StreamSubscription onDispatchSub;
   int displayingViewIndex = 0;
+  String title = "چشم انداز";
 
   @override
   void initState() {
@@ -29,10 +34,11 @@ class _MainViewState extends State<MainView> {
     onDispatchSub = widget.indexDistpacher.listen(_onIndexDispatched);
   }
 
-  _onIndexDispatched(int index) {
-    if (index != displayingViewIndex) {
+  _onIndexDispatched(MainViewEvent event) {
+    if (event.index != displayingViewIndex) {
       setState(() {
-        displayingViewIndex = index;
+        displayingViewIndex = event.index;
+        title = event.title;
       });
     }
   }
@@ -41,18 +47,20 @@ class _MainViewState extends State<MainView> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const MainViewTopBar(),
+        MainViewTopBar(title: title),
         Expanded(
           child: IndexedStack(
             index: displayingViewIndex,
-            children: const [
-              Dashboard(),
-              Transactions(),
-              AccountView(),
-              Investments(),
-              MyCards(),
-              Loans(),
-              Srvices(),
+            children: [
+              const Dashboard(),
+              const Transactions(),
+              const AccountView(),
+              const Investments(),
+              const MyCards(),
+              const Loans(),
+              const Srvices(),
+              Container(),
+              SettingsView(),
             ],
           ),
         )
@@ -62,7 +70,8 @@ class _MainViewState extends State<MainView> {
 }
 
 class MainViewTopBar extends StatelessWidget {
-  const MainViewTopBar({super.key});
+  final String title;
+  const MainViewTopBar({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +120,7 @@ class MainViewTopBar extends StatelessWidget {
               children: [
                 Text(
                   style: Theme.of(context).textTheme.headlineLarge,
-                  "چشم انداز",
+                  title,
                 ),
                 const Spacer(),
                 Container(
@@ -178,19 +187,27 @@ class MainViewTopBar extends StatelessWidget {
                     onPressed: () {},
                   ),
                 ),
-                Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 10),
-                    width: 50,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.secondary,
-                      borderRadius: BorderRadius.circular(100),
-                    ),
-                    clipBehavior: Clip.antiAlias,
-                    child: FittedBox(
-                      fit: BoxFit.cover,
-                      child: Image.asset('assets/images/cat.jpg'),
-                    )),
+                Consumer<UserProvider>(
+                  builder: (context, userProvider, child) {
+                    final user = userProvider.holdData;
+                    return Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.secondary,
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      clipBehavior: Clip.antiAlias,
+                      child: FittedBox(
+                        fit: BoxFit.cover,
+                        child: Image(
+                          image: user!.avatar,
+                        ),
+                      ),
+                    );
+                  },
+                ),
               ],
             );
           },
