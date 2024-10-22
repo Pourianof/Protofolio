@@ -10,6 +10,7 @@ import 'package:my_portfolio/utils/image_uploader.dart';
 import 'package:my_portfolio/utils/number_form_field.dart';
 import 'package:persian_datetime_picker/persian_datetime_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 class EditProfileTab extends StatefulWidget {
   const EditProfileTab({super.key});
@@ -33,23 +34,36 @@ class _EditProfileTabState extends State<EditProfileTab>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              ResponsiveRowColumn(
+                layout: ResponsiveValue<ResponsiveRowColumnType>(context,
+                    conditionalValues: const [
+                      Condition.largerThan(
+                          breakpoint: 800, value: ResponsiveRowColumnType.ROW),
+                      Condition.between(
+                          start: 0,
+                          end: 800,
+                          value: ResponsiveRowColumnType.COLUMN),
+                    ]).value,
                 children: [
-                  ProfileAvatar(
-                    image: userData!.avatar,
-                    onNewAvatar: (newAvatar) {
-                      setState(() {
-                        updateUserData(
-                            userData!.copyWith(newAvatar: newAvatar));
-                      });
-                    },
+                  ResponsiveRowColumnItem(
+                    child: ProfileAvatar(
+                      image: userData!.avatar,
+                      onNewAvatar: (newAvatar) {
+                        setState(() {
+                          updateUserData(
+                              userData!.copyWith(newAvatar: newAvatar));
+                        });
+                      },
+                    ),
                   ),
-                  const SizedBox(
-                    width: AppStyles.mainViewPadding,
-                    height: AppStyles.mainViewPadding,
+                  const ResponsiveRowColumnItem(
+                    child: const SizedBox(
+                      width: AppStyles.mainViewPadding,
+                      height: AppStyles.mainViewPadding,
+                    ),
                   ),
-                  Expanded(
+                  ResponsiveRowColumnItem(
+                    rowFlex: 1,
                     child: ProfileEditor(
                       formState: this,
                     ),

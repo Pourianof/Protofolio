@@ -61,49 +61,45 @@ class Dashboard extends StatelessWidget {
                 ],
               ),
               75,
+              1,
             ),
             PartitionItem(
               const MediumTitle("تراکنش های اخیر"),
               25,
+              2,
             ),
           ],
         ),
         PartitionRow(
           [
-            PartitionItem(
-              const CreditCardsList(),
-              75,
-            ),
-            PartitionItem(
-              const TransactionsBox(),
-              25,
-            )
+            PartitionItem(const CreditCardsList(), 75, 1),
+            PartitionItem(const TransactionsBox(), 25, 2)
           ],
-          height: 300,
+          height: 235,
         ),
         PartitionRow(
           [
-            PartitionItem(const MediumTitle("فعالیت هفتگی"), 75),
-            PartitionItem(const MediumTitle("تاریخچه موجودی"), 25),
+            PartitionItem(const MediumTitle("فعالیت هفتگی"), 75, 3),
+            PartitionItem(const MediumTitle("تاریخچه موجودی"), 25, 4),
           ],
         ),
         PartitionRow(
           [
-            PartitionItem(ActivityBarChart(), 75),
-            PartitionItem(const ExpensesStatistics(), 25),
+            PartitionItem(ActivityBarChart(), 75, 3),
+            PartitionItem(const ExpensesStatistics(), 25, 4),
           ],
           height: 400,
         ),
         PartitionRow(
           [
-            PartitionItem(const MediumTitle("انتقال سریع"), 35),
-            PartitionItem(const MediumTitle("تاریخچه موجودی"), 65),
+            PartitionItem(const MediumTitle("انتقال سریع"), 35, 5),
+            PartitionItem(const MediumTitle("تاریخچه موجودی"), 65, 6),
           ],
         ),
         PartitionRow(
           [
-            PartitionItem(QuickTransferCard(), 35),
-            PartitionItem(BalanceHistoryChartCard(), 65),
+            PartitionItem(QuickTransferCard(), 35, 5),
+            PartitionItem(BalanceHistoryChartCard(), 65, 6),
           ],
           height: 350,
         ),

@@ -3,6 +3,7 @@ import 'package:my_portfolio/protofolios/helpers/utils.dart';
 import 'package:my_portfolio/protofolios/personal_bank/resources/app_colors.dart';
 import 'package:my_portfolio/protofolios/personal_bank/static_data/loans.dart';
 import 'package:my_portfolio/protofolios/personal_bank/widgets/bank_card.dart';
+import 'package:my_portfolio/protofolios/personal_bank/widgets/responsive_layout.dart';
 import 'package:my_portfolio/protofolios/personal_bank/widgets/standard_texts.dart';
 import 'package:my_portfolio/shared/custom_data_table.dart';
 import 'package:my_portfolio/utils/number_text.dart';
@@ -31,6 +32,7 @@ class ActiveLoansOverview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isMobile = ResponsiveLayout.isMobile(context);
     List<CustomDataTableRow> loanWidgets = [];
     double totalMoney = 0;
     double totalLeft = 0;
@@ -45,32 +47,35 @@ class ActiveLoansOverview extends StatelessWidget {
       loanWidgets.add(
         CustomDataTableRow(
           cells: [
-            CustomDataCell(
-              data: NumberText(
-                textNumber: "0$idx.",
+            if (!isMobile)
+              CustomDataCell(
+                data: NumberText(
+                  textNumber: "0${idx + 1}.",
+                ),
               ),
-            ),
             CustomDataCell(
               data: NumberText(textNumber: "${toCommaSeperated(loan.money)}T"),
             ),
             CustomDataCell(
               data: NumberText(textNumber: "${toCommaSeperated(loan.left)}T"),
             ),
-            CustomDataCell(
-              data: Text("${loan.duration} ماه"),
-            ),
-            CustomDataCell(
-              data: NumberText(textNumber: "${loan.rate}%"),
-            ),
-            CustomDataCell(
-              data: Text("${toCommaSeperated(loan.installment)}/ماه"),
-            ),
+            if (!isMobile) ...[
+              CustomDataCell(
+                data: Text("${loan.duration} ماه"),
+              ),
+              CustomDataCell(
+                data: NumberText(textNumber: "${loan.rate}%"),
+              ),
+              CustomDataCell(
+                data: Text("${toCommaSeperated(loan.installment)}/ماه"),
+              ),
+            ],
             CustomDataCell(
               data: OutlinedButton(
                 onPressed: () {},
                 child: Text("بازپرداخت"),
               ),
-            )
+            ),
           ],
         ),
       );
@@ -94,24 +99,28 @@ class ActiveLoansOverview extends StatelessWidget {
         rows: [
           CustomDataTableRow(
             cells: [
-              provideTableTitle("شماره"),
+              if (!isMobile) provideTableTitle("شماره"),
               provideTableTitle("مبلغ وام"),
               provideTableTitle("باقی مانده"),
-              provideTableTitle("بازه"),
-              provideTableTitle("نرخ سود"),
-              provideTableTitle("قسط"),
+              if (!isMobile) ...[
+                provideTableTitle("بازه"),
+                provideTableTitle("نرخ سود"),
+                provideTableTitle("قسط"),
+              ],
               provideTableTitle("بازپرداخت"),
             ],
           ),
           ...loanWidgets,
           CustomDataTableRow(cells: [
-            provideTotalLabel("کل"),
+            if (!isMobile) provideTotalLabel("کل"),
             provideTotalLabel("${toCommaSeperated(totalMoney)}T"),
             provideTotalLabel("${toCommaSeperated(totalLeft)}T"),
-            provideEmptyCell(),
-            provideEmptyCell(),
+            if (!isMobile) ...[
+              provideEmptyCell(),
+              provideEmptyCell(),
+            ],
             provideTotalLabel("${toCommaSeperated(totalInstallment)}T/ماه"),
-            provideEmptyCell(),
+            if (!isMobile) provideEmptyCell(),
           ])
         ],
       ),

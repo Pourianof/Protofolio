@@ -4,6 +4,7 @@ import 'package:my_portfolio/protofolios/personal_bank/views/my_cards/widgets/ca
 import 'package:my_portfolio/protofolios/personal_bank/views/my_cards/widgets/cards_list.dart';
 import 'package:my_portfolio/protofolios/personal_bank/views/my_cards/widgets/credit_card_statistics.dart';
 import 'package:my_portfolio/protofolios/personal_bank/widgets/creadit_card.dart';
+import 'package:my_portfolio/protofolios/personal_bank/widgets/credit_cards_list.dart';
 import 'package:my_portfolio/protofolios/personal_bank/widgets/standard_texts.dart';
 import 'package:my_portfolio/shared/partition_layout/partition_layout.dart';
 
@@ -19,62 +20,44 @@ class MyCards extends StatelessWidget {
       partitions: [
         PartitionRow(
           [
-            PartitionItem(const MediumTitle("کارت های من"), 100),
+            PartitionItem(const MediumTitle("کارت های من"), 100, 1),
           ],
         ),
         PartitionRow(
           [
             PartitionItem(
-              const Row(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Expanded(
-                    child: CreditCard(
-                      styleTheme: CreaditCardStyleTheme.highlight,
-                    ),
-                  ),
-                  padd,
-                  Expanded(
-                    child: CreditCard(
-                      styleTheme: CreaditCardStyleTheme.active,
-                    ),
-                  ),
-                  padd,
-                  Expanded(
-                    child: CreditCard(
-                      styleTheme: CreaditCardStyleTheme.inactive,
-                    ),
-                  )
-                ],
+              const CreditCardsList(
+                threeCards: true,
               ),
               100,
+              1,
             ),
           ],
-          height: 300,
+          height: 235,
         ),
         PartitionRow(
           [
-            PartitionItem(const MediumTitle("آمار صورتحساب کارت"), 35),
-            PartitionItem(const MediumTitle("لیست کارت ها"), 65),
+            PartitionItem(const MediumTitle("آمار صورتحساب کارت"), 35, 2),
+            PartitionItem(const MediumTitle("لیست کارت ها"), 65, 3),
           ],
         ),
         PartitionRow(
           [
-            PartitionItem(const CreditCardStatistics(), 35),
-            PartitionItem(const CardsList(), 65),
+            PartitionItem(const CreditCardStatistics(), 35, 2),
+            PartitionItem(const CardsList(), 65, 3),
           ],
           height: 400,
         ),
         PartitionRow(
           [
-            PartitionItem(const MediumTitle("افزودن کارت جدید"), 75),
-            PartitionItem(const MediumTitle("تنظیمات کارت"), 25),
+            PartitionItem(const MediumTitle("افزودن کارت جدید"), 70, 4),
+            PartitionItem(const MediumTitle("تنظیمات کارت"), 30, 5),
           ],
         ),
         PartitionRow(
           [
-            PartitionItem(const AddNewCard(), 75),
-            PartitionItem(const CardSettings(), 25),
+            PartitionItem(const AddNewCard(), 70, 4),
+            PartitionItem(const CardSettings(), 30, 5),
           ],
           height: 450,
         )

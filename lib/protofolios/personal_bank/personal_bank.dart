@@ -9,16 +9,21 @@ import 'package:my_portfolio/protofolios/personal_bank/providers/user_provider.d
 import 'package:my_portfolio/protofolios/personal_bank/resources/app_colors.dart';
 import 'package:my_portfolio/protofolios/personal_bank/resources/app_styles.dart';
 import 'package:my_portfolio/protofolios/personal_bank/widgets/main_view.dart';
+import 'package:my_portfolio/protofolios/personal_bank/widgets/responsive_layout.dart';
 import 'package:my_portfolio/protofolios/personal_bank/widgets/sidebar.dart';
 import 'package:my_portfolio/shared/partition_layout/partion_layout_theme.dart';
+import 'package:my_portfolio/shared/sacaler.dart';
 import 'package:provider/provider.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 // ignore: must_be_immutable
 class PersonalBank extends StatelessWidget {
   PersonalBank({super.key});
-  StreamController<MainViewEvent> sideViewChannel = StreamController();
+  StreamController<MainViewEvent> sideViewChannel =
+      StreamController.broadcast();
 
   int viewIndex = 0;
+  GlobalKey mainViewGK = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -126,15 +131,6 @@ class PersonalBank extends StatelessWidget {
         cursorColor: AppColors.mainLightGrey,
         child: MultiProvider(
           providers: [
-            Provider<PartionLayoutTheme>(
-              create: (_) => PartionLayoutTheme(
-                rowInsets: const EdgeInsets.symmetric(
-                  horizontal: 40,
-                  vertical: 10,
-                ),
-                partionItemGap: 30,
-              ),
-            ),
             ChangeNotifierProvider<Auth>(
               create: (_) {
                 return Auth();
@@ -160,21 +156,65 @@ class PersonalBank extends StatelessWidget {
               ),
             )
           ],
-          builder: (ctx, val) => Directionality(
-            textDirection: TextDirection.rtl,
-            child: Scaffold(
-              backgroundColor: AppColors.backgroundColor,
-              body: Row(
-                children: [
-                  SideBar(
-                    newIndexSink: sideViewChannel.sink,
-                  ),
-                  Expanded(
-                    child: MainView(
-                      indexDistpacher: sideViewChannel.stream,
+          builder: (ctx, val) => ResponsiveBreakpoints(
+            breakpoints: const [
+              Breakpoint(
+                start: 800,
+                end: double.infinity,
+                name: DESKTOP,
+              ),
+              Breakpoint(
+                start: 0,
+                end: 800,
+                name: MOBILE,
+              ),
+            ],
+            child: Builder(
+              builder: (ctx) => Sacaler(
+                // autoCalculateMediaQueryData: true,
+                baseOnWidth: ResponsiveValue<double?>(
+                  ctx,
+                  conditionalValues: const [
+                    Condition.largerThan(breakpoint: 800, value: 1440),
+                    Condition.between(start: 400, end: 800, value: null),
+                    Condition.smallerThan(breakpoint: 400, value: 400),
+                  ],
+                ).value,
+                child: Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: Scaffold(
+                    drawer: ResponsiveLayout.isMobile(ctx)
+                        ? SideBar(
+                            newIndexSink: sideViewChannel.sink,
+                          )
+                        : null,
+                    backgroundColor: AppColors.backgroundColor,
+                    body: Row(
+                      children: [
+                        if (!ResponsiveLayout.isMobile(context))
+                          SideBar(
+                            newIndexSink: sideViewChannel.sink,
+                          ),
+                        Expanded(
+                          child: PartionLayoutTheme(
+                            data: PartionLayoutThemeData(
+                              rowInsets: const EdgeInsets.symmetric(
+                                horizontal: 40,
+                                vertical: 10,
+                              ),
+                              partionItemGap: 30,
+                              columanize:
+                                  MediaQuery.of(context).size.width < 800,
+                            ),
+                            child: MainView(
+                              indexDistpacher: sideViewChannel.stream,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
+                ),
               ),
             ),
           ),

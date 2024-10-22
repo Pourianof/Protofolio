@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:my_portfolio/protofolios/helpers/helper_functions.dart';
 import 'package:my_portfolio/shared/partition_layout/partion_layout_theme.dart';
-import 'package:provider/provider.dart';
 
 class PartitionItem {
   final Widget widget;
   final int flex;
+  final int? groupId;
 
-  PartitionItem(this.widget, this.flex);
+  PartitionItem(this.widget, this.flex, [this.groupId]);
 }
 
 class PartitionRow {
   final List<PartitionItem> items;
 
   final double? height;
+  final double? aspectRatio;
   PartitionRow(
     this.items, {
     this.height,
+    this.aspectRatio,
   });
 }
 
@@ -26,7 +29,7 @@ class PartitionLayout extends StatelessWidget {
     required this.partitions,
   });
 
-  late PartionLayoutTheme _themeData;
+  late PartionLayoutThemeData _themeData;
 
   Widget makeARow(PartitionRow partition) {
     final List<Widget> items = [];
@@ -53,28 +56,96 @@ class PartitionLayout extends StatelessWidget {
 
     final isBounded = partition.height != null;
 
-    return Container(
-      height: partition.height,
-      padding: _themeData.rowInsets,
-      child: Row(
-        crossAxisAlignment:
-            isBounded ? CrossAxisAlignment.stretch : CrossAxisAlignment.center,
-        children: items,
+    final hasAR = partition.aspectRatio != null;
+
+    final row = Padding(
+      padding: _themeData.rowInsets!,
+      child: SizedBox(
+        height: hasAR ? null : partition.height,
+        child: Row(
+          crossAxisAlignment: isBounded
+              ? CrossAxisAlignment.stretch
+              : CrossAxisAlignment.center,
+          children: items,
+        ),
       ),
     );
+
+    if (hasAR) {
+      return AspectRatio(
+        aspectRatio: partition.aspectRatio!,
+        child: row,
+      );
+    }
+    return row;
+  }
+
+  _getGroupedChildren() {
+    Map<int, List<Widget>> widgetGroups =
+        {}; // map of groupid to list widgets with that id
+
+    putToList(int groupId, Widget widget) {
+      late List<Widget>? groupList = widgetGroups[groupId];
+
+      if (groupList == null) {
+        groupList = [];
+        widgetGroups.putIfAbsent(groupId, () => groupList!);
+      }
+
+      groupList.add(widget);
+    }
+
+    partitions.forEach(
+      (p) => p.items.forEach((i) {
+        Widget widget = p.height != null
+            ? SizedBox(
+                height: p.height,
+                child: i.widget,
+              )
+            : i.widget;
+        if (_themeData.rowInsets != null) {
+          widget = Padding(
+            padding: _themeData.rowInsets!,
+            child: widget,
+          );
+        }
+        if (i.groupId != null) {
+          putToList(
+            i.groupId!,
+            widget,
+          );
+        } else {
+          putToList(-1, widget);
+        }
+      }),
+    );
+
+    final x = (widgetGroups.keys.toList()..sort())
+        .map((id) => widgetGroups[id])
+        .toList();
+    return flatten<Widget>(
+      x,
+    );
+  }
+
+  List<Widget> _getChildren() {
+    final columanize = _themeData.columanize;
+
+    if (columanize) {
+      return _getGroupedChildren();
+    }
+
+    return partitions.map(makeARow).toList();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<PartionLayoutTheme>(
-      builder: (context, value, child) {
-        _themeData = value;
-        return SingleChildScrollView(
-          child: Column(
-            children: partitions.map(makeARow).toList(),
-          ),
-        );
-      },
+    _themeData = PartionLayoutTheme.of(context)!;
+
+    return SingleChildScrollView(
+      child: Column(
+        children: _getChildren(),
+      ),
     );
   }
 }

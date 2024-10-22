@@ -19,27 +19,27 @@ class Investments extends StatelessWidget {
         ),
         PartitionRow(
           [
-            PartitionItem(const MediumTitle("کل سرمایه گذاری سالانه"), 50),
-            PartitionItem(const MediumTitle("درآمد ماهانه"), 50)
+            PartitionItem(const MediumTitle("کل سرمایه گذاری سالانه"), 50, 1),
+            PartitionItem(const MediumTitle("درآمد ماهانه"), 50, 2)
           ],
         ),
         PartitionRow(
           [
-            PartitionItem(const YearlyTotalInvestment(), 50),
-            PartitionItem(const MonthlyRevenue(), 50)
+            PartitionItem(const YearlyTotalInvestment(), 50, 1),
+            PartitionItem(const MonthlyRevenue(), 50, 2)
           ],
           height: 400,
         ),
         PartitionRow(
           [
-            PartitionItem(const MediumTitle("سرمایه گذاری"), 65),
-            PartitionItem(const MediumTitle("سهام های محبوب"), 35)
+            PartitionItem(const MediumTitle("سرمایه گذاری"), 65, 3),
+            PartitionItem(const MediumTitle("سهام های محبوب"), 35, 4)
           ],
         ),
         PartitionRow(
           [
-            PartitionItem(const InvestmentsList(), 65),
-            PartitionItem(const TrendingStocks(), 35),
+            PartitionItem(const InvestmentsList(), 65, 3),
+            PartitionItem(const TrendingStocks(), 35, 4),
           ],
         )
       ],

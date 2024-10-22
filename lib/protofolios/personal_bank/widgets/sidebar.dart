@@ -198,15 +198,21 @@ class _SideBarState extends State<SideBar> {
                   ),
                 ),
               ),
-              ...items.indexed.map(
-                (e) {
-                  final (index, map) = e;
-                  return _provideLinkButton(
-                    name: map["name"],
-                    icon: map["icon"],
-                    index: index,
-                  );
-                },
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: items.indexed.map<Widget>(
+                      (e) {
+                        final (index, map) = e;
+                        return _provideLinkButton(
+                          name: map["name"],
+                          icon: map["icon"],
+                          index: index,
+                        );
+                      },
+                    ).toList(),
+                  ),
+                ),
               ),
             ],
           ),

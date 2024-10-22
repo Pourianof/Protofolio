@@ -4,6 +4,7 @@ import 'package:my_portfolio/protofolios/personal_bank/static_data/investments.d
 import 'package:my_portfolio/protofolios/personal_bank/widgets/amount_text.dart';
 import 'package:my_portfolio/protofolios/personal_bank/widgets/bank_card.dart';
 import 'package:my_portfolio/protofolios/personal_bank/widgets/icon_link.dart';
+import 'package:my_portfolio/protofolios/personal_bank/widgets/responsive_layout.dart';
 import 'package:my_portfolio/protofolios/personal_bank/widgets/standard_texts.dart';
 import 'package:my_portfolio/protofolios/helpers/utils.dart';
 
@@ -31,6 +32,7 @@ class InvestmentItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isMobile = ResponsiveLayout.isMobile(context);
     return BankCard(
       child: Row(
         children: [
@@ -59,21 +61,23 @@ class InvestmentItem extends StatelessWidget {
           const SizedBox(
             width: 15,
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                '${toCommaSeperated(investment.investValue)} تومان',
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
+          if (!isMobile) ...[
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '${toCommaSeperated(investment.investValue)} تومان',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              const NonActiveLink("ارزش سرمایه گذاری"),
-            ],
-          ),
-          const SizedBox(
-            width: 15,
-          ),
+                const NonActiveLink("ارزش سرمایه گذاری"),
+              ],
+            ),
+            const SizedBox(
+              width: 15,
+            ),
+          ],
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_portfolio/protofolios/personal_bank/widgets/responsive_layout.dart';
 import 'package:my_portfolio/utils/number_text.dart';
 
 enum CreaditCardStyleTheme { active, inactive, highlight }
@@ -50,6 +51,108 @@ class CreditCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Widget actualCard = Card(
+      margin: EdgeInsets.zero,
+      elevation: 0,
+      child: Container(
+        clipBehavior: Clip.antiAlias,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          border: isInActive
+              ? const Border.fromBorderSide(
+                  BorderSide(
+                    color: Color.fromARGB(255, 223, 234, 242),
+                  ),
+                )
+              : null,
+          color: isInActive ? Colors.white : null,
+          gradient: _gradient,
+        ),
+        child: Wrap(
+          runAlignment: WrapAlignment.spaceEvenly,
+          direction: Axis.horizontal,
+          children: [
+            const Padding(
+              padding: EdgeInsets.all(30),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(style: TextStyle(fontSize: 10), "موجودی حساب"),
+                      NumberText(textNumber: "2,568,570 تومان")
+                    ],
+                  ),
+                  Icon(Icons.credit_card)
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 0, horizontal: 40),
+              child: Row(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(style: TextStyle(fontSize: 10), "صاحب کارت"),
+                      Text("پوریا امینی"),
+                    ],
+                  ),
+                  SizedBox(
+                    width: 100,
+                  ),
+                  Column(
+                    children: [
+                      Text(style: TextStyle(fontSize: 10), "تاریخ انقضاء"),
+                      NumberText(textNumber: "12/22"),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 40),
+              decoration: BoxDecoration(
+                border: isInActive
+                    ? const BorderDirectional(
+                        top: BorderSide(
+                          color: Color.fromARGB(255, 223, 234, 242),
+                        ),
+                      )
+                    : null,
+                gradient: !isInActive
+                    ? const LinearGradient(
+                        colors: [
+                            Color.fromARGB(55, 255, 255, 255),
+                            Color.fromARGB(1, 255, 255, 255)
+                          ],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter)
+                    : null,
+              ),
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  NumberText(textNumber: "6037 **** **** 1234"),
+                  Icon(Icons.paypal)
+                ],
+              ),
+            ),
+          ],
+          // ),
+        ),
+      ),
+    );
+    if (ResponsiveLayout.isMobile(context)) {
+      actualCard = AspectRatio(aspectRatio: 350 / 235, child: actualCard);
+    }
     return Theme(
       data: ThemeData(
         iconTheme: IconThemeData(
@@ -65,105 +168,7 @@ class CreditCard extends StatelessWidget {
           ),
         ),
       ),
-      child: Card(
-        margin: EdgeInsets.zero,
-        elevation: 0,
-        child: Container(
-          clipBehavior: Clip.antiAlias,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            border: isInActive
-                ? const Border.fromBorderSide(
-                    BorderSide(
-                      color: Color.fromARGB(255, 223, 234, 242),
-                    ),
-                  )
-                : null,
-            color: isInActive ? Colors.white : null,
-            gradient: _gradient,
-          ),
-          child: Wrap(
-            runAlignment: WrapAlignment.spaceEvenly,
-            direction: Axis.horizontal,
-            children: [
-              const Padding(
-                padding: EdgeInsets.all(30),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(style: TextStyle(fontSize: 10), "موجودی حساب"),
-                        NumberText(textNumber: "2,568,570 تومان")
-                      ],
-                    ),
-                    Icon(Icons.credit_card)
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 0, horizontal: 40),
-                child: Row(
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(style: TextStyle(fontSize: 10), "صاحب کارت"),
-                        Text("پوریا امینی"),
-                      ],
-                    ),
-                    SizedBox(
-                      width: 100,
-                    ),
-                    Column(
-                      children: [
-                        Text(style: TextStyle(fontSize: 10), "تاریخ انقضاء"),
-                        NumberText(textNumber: "12/22"),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 5, horizontal: 40),
-                decoration: BoxDecoration(
-                  border: isInActive
-                      ? const BorderDirectional(
-                          top: BorderSide(
-                            color: Color.fromARGB(255, 223, 234, 242),
-                          ),
-                        )
-                      : null,
-                  gradient: !isInActive
-                      ? const LinearGradient(
-                          colors: [
-                              Color.fromARGB(55, 255, 255, 255),
-                              Color.fromARGB(1, 255, 255, 255)
-                            ],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter)
-                      : null,
-                ),
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    NumberText(textNumber: "6037 **** **** 1234"),
-                    Icon(Icons.paypal)
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      child: actualCard,
     );
   }
 }

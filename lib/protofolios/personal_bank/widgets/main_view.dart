@@ -12,6 +12,7 @@ import 'package:my_portfolio/protofolios/personal_bank/views/my_cards/my_cards.d
 import 'package:my_portfolio/protofolios/personal_bank/views/services/srvices.dart';
 import 'package:my_portfolio/protofolios/personal_bank/views/settings_view/settings_view.dart';
 import 'package:my_portfolio/protofolios/personal_bank/views/transactions.dart';
+import 'package:my_portfolio/protofolios/personal_bank/widgets/responsive_layout.dart';
 import 'package:provider/provider.dart';
 import '../views/dashboard.dart';
 
@@ -67,16 +68,123 @@ class _MainViewState extends State<MainView> {
       ],
     );
   }
+
+  @override
+  void dispose() {
+    onDispatchSub.cancel();
+    super.dispose();
+  }
 }
 
 class MainViewTopBar extends StatelessWidget {
   final String title;
   const MainViewTopBar({super.key, required this.title});
 
+  getTitle(BuildContext context) {
+    return Text(
+      style: Theme.of(context).textTheme.headlineLarge,
+      title,
+    );
+  }
+
+  getSearchBar(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 10),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.secondary,
+        borderRadius: BorderRadius.circular(100),
+      ),
+      width: ResponsiveLayout.isMobile(context) ? null : 250,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 10, right: 20.0),
+            child: Transform.flip(
+              flipX: true,
+              child: const Icon(
+                BankIcons.search,
+              ),
+            ),
+          ),
+          Expanded(
+            child: TextField(
+              decoration: InputDecoration(
+                hintStyle: TextStyle(
+                    color: Theme.of(context).textTheme.bodyMedium?.color ??
+                        Colors.black),
+                border: InputBorder.none,
+                hintText: 'عبارتی را جستجو کنید',
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  getSetting(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 10),
+      width: 50,
+      height: 50,
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.secondary,
+        borderRadius: BorderRadius.circular(100),
+      ),
+      child: IconButton(
+        icon: const Icon(BankIcons.settingsOutline),
+        onPressed: () {},
+      ),
+    );
+  }
+
+  getNotifButton(BuildContext context) {
+    return Container(
+      width: 50,
+      height: 50,
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.secondary,
+        borderRadius: BorderRadius.circular(100),
+      ),
+      child: IconButton(
+        icon: const Icon(
+          BankIcons.notif,
+          color: Colors.red,
+        ),
+        onPressed: () {},
+      ),
+    );
+  }
+
+  getAvatar() {
+    return Consumer<UserProvider>(
+      builder: (context, userProvider, child) {
+        final user = userProvider.holdData;
+        return Container(
+          margin: const EdgeInsets.symmetric(horizontal: 10),
+          width: 50,
+          height: 50,
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.secondary,
+            borderRadius: BorderRadius.circular(100),
+          ),
+          clipBehavior: Clip.antiAlias,
+          child: FittedBox(
+            fit: BoxFit.cover,
+            child: Image(
+              image: user!.avatar,
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 80,
+      // height: ResponsiveLayout.isMobile(context) ? ,
       decoration: const BoxDecoration(
         border: Border(
           bottom: BorderSide(color: AppColors.borderColor),
@@ -116,99 +224,42 @@ class MainViewTopBar extends StatelessWidget {
         ),
         child: Builder(
           builder: (context) {
-            return Row(
-              children: [
-                Text(
-                  style: Theme.of(context).textTheme.headlineLarge,
-                  title,
-                ),
-                const Spacer(),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 10),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.secondary,
-                    borderRadius: BorderRadius.circular(100),
-                  ),
-                  width: 250,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10, right: 20.0),
-                        child: Transform.flip(
-                          flipX: true,
-                          child: const Icon(
-                            BankIcons.search,
-                          ),
+            return ResponsiveLayout(
+              desktopMode: Row(
+                children: [
+                  getTitle(context),
+                  const Spacer(),
+                  getSearchBar(context),
+                  getSetting(context),
+                  getNotifButton(context),
+                  getAvatar(),
+                ],
+              ),
+              mobileMode: Padding(
+                padding: EdgeInsets.all(15),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            Scaffold.of(context).openDrawer();
+                          },
+                          icon: Icon(Icons.menu),
                         ),
-                      ),
-                      Expanded(
-                        child: TextField(
-                          decoration: InputDecoration(
-                            hintStyle: TextStyle(
-                                color: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium
-                                        ?.color ??
-                                    Colors.black),
-                            border: InputBorder.none,
-                            hintText: 'عبارتی را جستجو کنید',
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 10),
-                  width: 50,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.secondary,
-                    borderRadius: BorderRadius.circular(100),
-                  ),
-                  child: IconButton(
-                    icon: const Icon(BankIcons.settingsOutline),
-                    onPressed: () {},
-                  ),
-                ),
-                Container(
-                  width: 50,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.secondary,
-                    borderRadius: BorderRadius.circular(100),
-                  ),
-                  child: IconButton(
-                    icon: const Icon(
-                      BankIcons.notif,
-                      color: Colors.red,
+                        const Spacer(),
+                        getTitle(context),
+                        const Spacer(),
+                        getAvatar(),
+                      ],
                     ),
-                    onPressed: () {},
-                  ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    getSearchBar(context),
+                  ],
                 ),
-                Consumer<UserProvider>(
-                  builder: (context, userProvider, child) {
-                    final user = userProvider.holdData;
-                    return Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 10),
-                      width: 50,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.secondary,
-                        borderRadius: BorderRadius.circular(100),
-                      ),
-                      clipBehavior: Clip.antiAlias,
-                      child: FittedBox(
-                        fit: BoxFit.cover,
-                        child: Image(
-                          image: user!.avatar,
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ],
+              ),
             );
           },
         ),

@@ -42,21 +42,30 @@ class SummaryItem extends StatelessWidget {
               style: Theme.of(context).textTheme.labelLarge,
             ),
     ];
-    return BankCard(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          IconLink(
-            icon: icon,
+    return LayoutBuilder(
+      builder: (context, constraints) => SizedBox(
+        width: constraints.maxWidth.isFinite ? constraints.maxWidth : null,
+        child: BankCard(
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconLink(
+                  icon: icon,
+                ),
+                const SizedBox(
+                  width: 15,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children:
+                      titleReverseOrder ? titleCol.reversed.toList() : titleCol,
+                ),
+              ],
+            ),
           ),
-          const SizedBox(
-            width: 15,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: titleReverseOrder ? titleCol.reversed.toList() : titleCol,
-          )
-        ],
+        ),
       ),
     );
   }

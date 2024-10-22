@@ -3,9 +3,11 @@ import 'package:my_portfolio/protofolios/personal_bank/resources/app_colors.dart
 import 'package:my_portfolio/protofolios/personal_bank/static_data/transactions.dart';
 import 'package:my_portfolio/protofolios/personal_bank/widgets/amount_text.dart';
 import 'package:my_portfolio/protofolios/personal_bank/widgets/bank_card.dart';
+import 'package:my_portfolio/protofolios/personal_bank/widgets/responsive_layout.dart';
 import 'package:my_portfolio/protofolios/personal_bank/widgets/standard_texts.dart';
 import 'package:my_portfolio/shared/custom_data_table.dart';
 import 'package:my_portfolio/utils/number_text.dart';
+import 'package:persian_datetime_picker/persian_datetime_picker.dart';
 
 class LastTransactions extends StatefulWidget {
   const LastTransactions({super.key});
@@ -17,6 +19,7 @@ class LastTransactions extends StatefulWidget {
 class _LastTransactionsState extends State<LastTransactions> {
   @override
   Widget build(BuildContext context) {
+    final isMobile = ResponsiveLayout.isMobile(context);
     const headStyle = TextStyle(
       color: AppColors.mainLightGrey,
       fontSize: 16,
@@ -97,7 +100,7 @@ class _LastTransactionsState extends State<LastTransactions> {
                 cellsAllignment: Alignment.centerRight,
               ),
               dividerGenerator: (index) {
-                if (index == 0) {
+                if (!isMobile && index == 0) {
                   return const BorderSide(
                     color: AppColors.mainLightGrey,
                     width: 1,
@@ -111,52 +114,53 @@ class _LastTransactionsState extends State<LastTransactions> {
                 );
               },
               rows: [
-                const CustomDataTableRow(
-                  cells: [
-                    CustomDataCell(
-                      data: Text(
-                        'توضیحات',
-                        style: headStyle,
+                if (!isMobile)
+                  const CustomDataTableRow(
+                    cells: [
+                      CustomDataCell(
+                        data: Text(
+                          'توضیحات',
+                          style: headStyle,
+                        ),
                       ),
-                    ),
-                    CustomDataCell(
-                      data: Text(
-                        'شناسه',
-                        style: headStyle,
+                      CustomDataCell(
+                        data: Text(
+                          'شناسه',
+                          style: headStyle,
+                        ),
                       ),
-                    ),
-                    CustomDataCell(
-                      data: Text(
-                        'نوع',
-                        style: headStyle,
+                      CustomDataCell(
+                        data: Text(
+                          'نوع',
+                          style: headStyle,
+                        ),
                       ),
-                    ),
-                    CustomDataCell(
-                      data: Text(
-                        'شماره کارت',
-                        style: headStyle,
+                      CustomDataCell(
+                        data: Text(
+                          'شماره کارت',
+                          style: headStyle,
+                        ),
                       ),
-                    ),
-                    CustomDataCell(
-                      data: Text(
-                        'تاریخ',
-                        style: headStyle,
+                      CustomDataCell(
+                        data: Text(
+                          'تاریخ',
+                          style: headStyle,
+                        ),
                       ),
-                    ),
-                    CustomDataCell(
-                      data: Text(
-                        'مقدار',
-                        style: headStyle,
+                      CustomDataCell(
+                        data: Text(
+                          'مقدار',
+                          style: headStyle,
+                        ),
                       ),
-                    ),
-                    CustomDataCell(
-                      data: Text(
-                        'رسید',
-                        style: headStyle,
+                      CustomDataCell(
+                        data: Text(
+                          'رسید',
+                          style: headStyle,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
                 ...TRANSACTIONS.map((trx) {
                   return CustomDataTableRow(cells: [
                     CustomDataCell(
@@ -170,41 +174,52 @@ class _LastTransactionsState extends State<LastTransactions> {
                           const SizedBox(
                             width: 10,
                           ),
-                          Text(
-                            trx.description,
-                          ),
+                          if (isMobile)
+                            SubtitledLabel(
+                              title: trx.description,
+                              subtitle: Jalali.fromDateTime(trx.date)
+                                  .formatFullDate(),
+                            ),
+                          if (!isMobile)
+                            Text(
+                              trx.description,
+                            ),
                         ],
                       ),
                     ),
-                    CustomDataCell(data: Text(trx.id)),
-                    CustomDataCell(data: Text(trx.type.title)),
+                    if (!isMobile) ...[
+                      CustomDataCell(data: Text(trx.id)),
+                      CustomDataCell(data: Text(trx.type.title)),
+                      CustomDataCell(
+                          data: NumberText(textNumber: trx.cardNumber)),
+                      CustomDataCell(data: Text(trx.date.toIso8601String())),
+                    ],
                     CustomDataCell(
-                        data: NumberText(textNumber: trx.cardNumber)),
-                    CustomDataCell(data: Text(trx.date.toIso8601String())),
-                    CustomDataCell(
-                        data: AmountText(
-                      amount: trx.amount,
-                      suffix: '\$',
-                    )),
-                    CustomDataCell(
-                      data: Container(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 5,
-                          horizontal: 10,
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          border:
-                              Border.all(color: AppColors.navi_blue, width: 1),
-                        ),
-                        child: const Text(
-                          "دانلود",
-                          style: TextStyle(
-                            color: AppColors.navi_blue,
+                      data: AmountText(
+                        amount: trx.amount,
+                        suffix: '\$',
+                      ),
+                    ),
+                    if (!isMobile)
+                      CustomDataCell(
+                        data: Container(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 5,
+                            horizontal: 10,
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            border: Border.all(
+                                color: AppColors.navi_blue, width: 1),
+                          ),
+                          child: const Text(
+                            "دانلود",
+                            style: TextStyle(
+                              color: AppColors.navi_blue,
+                            ),
                           ),
                         ),
                       ),
-                    ),
                   ]);
                 }),
               ],

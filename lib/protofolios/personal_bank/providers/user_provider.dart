@@ -5,8 +5,10 @@ import 'package:my_portfolio/protofolios/personal_bank/models/user.dart';
 import 'package:persian_datetime_picker/persian_datetime_picker.dart';
 
 class UserProvider extends ChangeNotifier with Holder<User> {
-  final Auth? _auth;
-  UserProvider({Auth? auth}) : _auth = auth {
+  // final Auth? _auth;
+  UserProvider({Auth? auth})
+  //  : _auth = auth
+  {
     holdData = User(
       avatar: const AssetImage('assets/images/cat.jpg'),
       email: 'cat@gmail.com',

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_portfolio/protofolios/personal_bank/widgets/standard_texts.dart';
 import 'package:my_portfolio/utils/number_text.dart';
 
 class TransactionsBox extends StatelessWidget {
@@ -29,7 +30,9 @@ class TransactionsBox extends StatelessWidget {
                   color: Color.fromARGB(255, 255, 185, 56), Icons.credit_card),
             ),
             title: const Text("برداشت از حساب من"),
-            subtitle: const Text("8 مرداد 1403"),
+            subtitle: const NonActiveLink(
+              "8 مرداد 1403",
+            ),
             trailing: const NumberText(
               textNumber: "-\$724",
               style: TextStyle(
@@ -52,7 +55,7 @@ class TransactionsBox extends StatelessWidget {
                   Icons.paypal_outlined),
             ),
             title: const Text("واریز پی پال"),
-            subtitle: const Text("8 مرداد 1403"),
+            subtitle: const NonActiveLink("8 مرداد 1403"),
             trailing: const NumberText(
               textNumber: "+\$3,481",
               style: TextStyle(
@@ -74,7 +77,7 @@ class TransactionsBox extends StatelessWidget {
                   Icons.paypal_outlined),
             ),
             title: const Text("موسی جعفری"),
-            subtitle: const Text("8 مرداد 1403"),
+            subtitle: const NonActiveLink("8 مرداد 1403"),
             trailing: const NumberText(
               textNumber: "+\$1,740",
               style: TextStyle(
