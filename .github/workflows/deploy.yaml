@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main # اجرای ورک‌فلو هنگام پوش به شاخه main
+  paths:
+    - "lib/**"
+    - "assets/**"
 
 jobs:
   build-and-deploy:
