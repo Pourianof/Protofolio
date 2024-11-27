@@ -1,0 +1,37 @@
+name: Flutter Web Deployment
+
+on:
+  push:
+    branches:
+      - main # اجرای ورک‌فلو هنگام پوش به شاخه main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. کلون کردن مخزن
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      # 2. تنظیم Flutter و نصب
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "<latest>" # یا نسخه مشخص مانند '3.13.0'
+
+      # 3. اجرای بیلد Flutter Web
+      - name: Build Flutter Web
+        run: flutter build web --release --web-renderer html
+
+        # 4. ویرایش فایل index.html برای حذف یا تغییر <base href="/">
+      - name: Fix Base Tag in index.html
+        run: |
+          sed -i '/<base href="\.?\/">/d' build/web/index.html
+
+      # 4. انتشار به شاخه gh-pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: build/web # مسیر خروجی وب
