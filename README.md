@@ -1,16 +1,16 @@
-# my_portfolio
+# Protofolio
 
-A new Flutter project.
+On this repo i insert my protofolios.
+This contains multiple web pages which programmed with Dart and Flutter SDK.
+All pages codes exist at `lib/protofolios` directory.
 
-## Getting Started
+# Demo
 
-This project is a starting point for a Flutter application.
+You can also see live demo of this protofolio from [This page](https://github.io/).
 
-A few resources to get you started if this is your first Flutter project:
+## Inspirations
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+This pages designed based on some UI templates i found on figma. So i appreciate the designers.
+| Page | UI Source Dribble Page | UI Source Figma Page | 
+| ---- | ---------------------- | -------------------- |
+| personal_page | __[Dribble](https://dribbble.com/shots/24335796-BankDash-Dashboard-UI-Kit-Admin-Template-Dashboard)__ | __[Figma](https://www.figma.com/community/file/1323695683687017923)__ |
