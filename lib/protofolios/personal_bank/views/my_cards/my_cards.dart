@@ -3,7 +3,6 @@ import 'package:my_portfolio/protofolios/personal_bank/views/my_cards/widgets/ad
 import 'package:my_portfolio/protofolios/personal_bank/views/my_cards/widgets/card_settings.dart';
 import 'package:my_portfolio/protofolios/personal_bank/views/my_cards/widgets/cards_list.dart';
 import 'package:my_portfolio/protofolios/personal_bank/views/my_cards/widgets/credit_card_statistics.dart';
-import 'package:my_portfolio/protofolios/personal_bank/widgets/creadit_card.dart';
 import 'package:my_portfolio/protofolios/personal_bank/widgets/credit_cards_list.dart';
 import 'package:my_portfolio/protofolios/personal_bank/widgets/standard_texts.dart';
 import 'package:my_portfolio/shared/partition_layout/partition_layout.dart';
@@ -13,9 +12,6 @@ class MyCards extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const padd = SizedBox(
-      width: 30,
-    );
     return PartitionLayout(
       partitions: [
         PartitionRow(

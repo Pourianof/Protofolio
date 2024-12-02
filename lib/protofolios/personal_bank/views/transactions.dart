@@ -22,12 +22,12 @@ class Transactions extends StatelessWidget {
                   MediumTitle("+ افزودن کارت"),
                 ],
               ),
-              75,
+              70,
               1,
             ),
             PartitionItem(
               const MediumTitle("خرج های من"),
-              25,
+              30,
               2,
             ),
           ],
@@ -36,12 +36,12 @@ class Transactions extends StatelessWidget {
           [
             PartitionItem(
               const CreditCardsList(),
-              75,
+              70,
               1,
             ),
             PartitionItem(
               const ExpensesChart(),
-              25,
+              30,
               2,
             )
           ],

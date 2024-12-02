@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_portfolio/protofolios/personal_bank/widgets/responsive_layout.dart';
 import 'package:my_portfolio/protofolios/personal_bank/widgets/summary_item.dart';
-import 'package:my_portfolio/shared/partition_layout/partition_layout.dart';
 import 'package:my_portfolio/shared/partition_layout/partion_layout_theme.dart';
 
 class SummaryWrapper extends StatelessWidget {

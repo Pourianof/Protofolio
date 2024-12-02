@@ -60,33 +60,33 @@ class Dashboard extends StatelessWidget {
                   MediumTitle("دیدن همه"),
                 ],
               ),
-              75,
+              70,
               1,
             ),
             PartitionItem(
               const MediumTitle("تراکنش های اخیر"),
-              25,
+              30,
               2,
             ),
           ],
         ),
         PartitionRow(
           [
-            PartitionItem(const CreditCardsList(), 75, 1),
-            PartitionItem(const TransactionsBox(), 25, 2)
+            PartitionItem(const CreditCardsList(), 70, 1),
+            PartitionItem(const TransactionsBox(), 30, 2)
           ],
           height: 235,
         ),
         PartitionRow(
           [
-            PartitionItem(const MediumTitle("فعالیت هفتگی"), 75, 3),
-            PartitionItem(const MediumTitle("تاریخچه موجودی"), 25, 4),
+            PartitionItem(const MediumTitle("فعالیت هفتگی"), 70, 3),
+            PartitionItem(const MediumTitle("تاریخچه موجودی"), 30, 4),
           ],
         ),
         PartitionRow(
           [
-            PartitionItem(ActivityBarChart(), 75, 3),
-            PartitionItem(const ExpensesStatistics(), 25, 4),
+            PartitionItem(ActivityBarChart(), 70, 3),
+            PartitionItem(const ExpensesStatistics(), 30, 4),
           ],
           height: 400,
         ),

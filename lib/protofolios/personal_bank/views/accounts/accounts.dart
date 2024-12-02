@@ -19,12 +19,12 @@ class AccountView extends StatelessWidget {
       partitions: [
         PartitionRow(
           [
-            PartitionItem(AcountSummary(), 100),
+            PartitionItem(const AcountSummary(), 100),
           ],
         ),
         PartitionRow(
           [
-            PartitionItem(MediumTitle("آخرین تراکنش ها"), 60, 1),
+            PartitionItem(const MediumTitle("آخرین تراکنش ها"), 65, 1),
             PartitionItem(
                 const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -33,18 +33,18 @@ class AccountView extends StatelessWidget {
                     MediumTitle("دیدن همه"),
                   ],
                 ),
-                40,
+                35,
                 2),
           ],
         ),
         PartitionRow(
           [
-            PartitionItem(IconicLastTransactions(), 70, 1),
+            PartitionItem(IconicLastTransactions(), 65, 1),
             PartitionItem(
               const CreditCard(
                 styleTheme: CreaditCardStyleTheme.highlight,
               ),
-              30,
+              35,
               2,
             )
           ],
@@ -52,14 +52,14 @@ class AccountView extends StatelessWidget {
         ),
         PartitionRow(
           [
-            PartitionItem(MediumTitle("چشم انداز اعتبار و بدهی"), 60, 3),
-            PartitionItem(MediumTitle("صورت حساب"), 40, 4),
+            PartitionItem(const MediumTitle("چشم انداز اعتبار و بدهی"), 70, 3),
+            PartitionItem(const MediumTitle("صورت حساب"), 30, 4),
           ],
         ),
         PartitionRow(
           [
             PartitionItem(DebitAndCreditChart(), 70, 3),
-            PartitionItem(InvoicesSent(), 30, 4)
+            PartitionItem(const InvoicesSent(), 30, 4)
           ],
           height: 400,
         )
@@ -69,9 +69,7 @@ class AccountView extends StatelessWidget {
 }
 
 class AcountSummary extends StatelessWidget {
-  AcountSummary({super.key});
-
-  late BuildContext _currentContext;
+  const AcountSummary({super.key});
 
   _createSummaryItem(IconData icon, String title, int amount, Color iconColor,
       Color iconBackgroundColor) {
@@ -84,8 +82,6 @@ class AcountSummary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _currentContext = context;
-
     return SummaryWrapper(
       items: [
         _createSummaryItem(
