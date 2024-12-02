@@ -225,18 +225,21 @@ class MainViewTopBar extends StatelessWidget {
         child: Builder(
           builder: (context) {
             return ResponsiveLayout(
-              desktopMode: Row(
-                children: [
-                  getTitle(context),
-                  const Spacer(),
-                  getSearchBar(context),
-                  getSetting(context),
-                  getNotifButton(context),
-                  getAvatar(),
-                ],
+              desktopMode: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Row(
+                  children: [
+                    getTitle(context),
+                    const Spacer(),
+                    getSearchBar(context),
+                    getSetting(context),
+                    getNotifButton(context),
+                    getAvatar(),
+                  ],
+                ),
               ),
               mobileMode: Padding(
-                padding: EdgeInsets.all(15),
+                padding: const EdgeInsets.all(15),
                 child: Column(
                   children: [
                     Row(
