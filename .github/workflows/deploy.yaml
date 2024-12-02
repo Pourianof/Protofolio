@@ -4,9 +4,10 @@ on:
   push:
     branches:
       - main # اجرای ورک‌فلو هنگام پوش به شاخه main
-  paths:
-    - "lib/**"
-    - "assets/**"
+    paths:
+      - "lib/**"
+      - "assets/**"
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
