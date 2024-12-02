@@ -161,7 +161,7 @@ class _SideBarState extends State<SideBar> {
       data: ThemeData(
         textTheme: const TextTheme(
           bodyMedium: mainTextStyle,
-        ),
+        ).apply(fontFamily: 'Sahel'),
         iconTheme: const IconThemeData(
           color: Color.fromARGB(255, 177, 177, 177),
           size: 30,

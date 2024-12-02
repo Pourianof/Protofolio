@@ -154,19 +154,22 @@ class CreditCard extends StatelessWidget {
       actualCard = AspectRatio(aspectRatio: 350 / 235, child: actualCard);
     }
     return Theme(
-      data: ThemeData(
+      data: Theme.of(context).copyWith(
         iconTheme: IconThemeData(
           size: 40,
           color: fontColor,
         ),
-        textTheme: TextTheme(
-          bodySmall: TextStyle(
-            color: fontColor,
-          ),
-          bodyMedium: TextStyle(
-            color: fontColor,
-          ),
-        ),
+        textTheme: Theme.of(context)
+            .textTheme
+            .copyWith(
+              bodySmall: TextStyle(
+                color: fontColor,
+              ),
+              bodyMedium: TextStyle(
+                color: fontColor,
+              ),
+            )
+            .apply(fontFamily: 'Sahel'),
       ),
       child: actualCard,
     );

@@ -110,9 +110,17 @@ class MainViewTopBar extends StatelessWidget {
           Expanded(
             child: TextField(
               decoration: InputDecoration(
+                enabledBorder: InputBorder.none,
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(50),
+                    borderSide: Theme.of(context)
+                        .inputDecorationTheme
+                        .focusedBorder!
+                        .borderSide),
                 hintStyle: TextStyle(
-                    color: Theme.of(context).textTheme.bodyMedium?.color ??
-                        Colors.black),
+                  color: Theme.of(context).textTheme.bodyMedium?.color ??
+                      Colors.black,
+                ),
                 border: InputBorder.none,
                 hintText: 'عبارتی را جستجو کنید',
               ),
@@ -192,7 +200,7 @@ class MainViewTopBar extends StatelessWidget {
         color: Colors.white,
       ),
       child: Theme(
-        data: ThemeData(
+        data: Theme.of(context).copyWith(
           colorScheme: const ColorScheme(
             brightness: Brightness.dark,
             primary: Colors.white,
@@ -220,7 +228,7 @@ class MainViewTopBar extends StatelessWidget {
               fontSize: 12,
               color: Color.fromARGB(255, 139, 162, 203),
             ),
-          ),
+          ).apply(fontFamily: 'Sahel'),
         ),
         child: Builder(
           builder: (context) {

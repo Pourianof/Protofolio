@@ -37,7 +37,7 @@ class ActiveLink extends StatelessWidget {
       style: const TextStyle(
         color: AppColors.darkBlue,
         fontSize: 14,
-      ),
+      ).apply(fontFamily: 'Sahel'),
       text,
     );
   }
@@ -59,7 +59,7 @@ class NonActiveLink extends StatelessWidget {
       style = const TextStyle(
         color: AppColors.mainLightGrey,
         fontSize: 14,
-      );
+      ).apply(fontFamily: 'Sahel');
     }
     return Text(
       style: style,
@@ -81,7 +81,8 @@ class SubtitledLabel extends StatelessWidget {
       children: [
         Text(
           title,
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: const TextStyle(fontWeight: FontWeight.bold)
+              .apply(fontFamily: 'Sahel'),
         ),
         const SizedBox(
           height: 5,

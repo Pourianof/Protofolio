@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'Pooria\'s protofolios',
       theme: ThemeData(
         useMaterial3: true,
+        fontFamily: 'Sahel',
         textTheme: const TextTheme(
           bodyMedium: TextStyle(fontSize: 12),
         ),

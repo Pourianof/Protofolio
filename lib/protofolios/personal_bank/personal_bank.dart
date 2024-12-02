@@ -32,7 +32,7 @@ class PersonalBank extends StatelessWidget {
       color: Color.fromARGB(255, 113, 142, 191),
     );
     return Theme(
-      data: ThemeData(
+      data: Theme.of(context).copyWith(
         inputDecorationTheme: const InputDecorationTheme(
           isDense: true,
           contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
@@ -124,7 +124,7 @@ class PersonalBank extends StatelessWidget {
             fontSize: 25,
             fontWeight: FontWeight.bold,
           ),
-        ),
+        ).apply(fontFamily: 'Sahel'),
         scaffoldBackgroundColor: AppColors.backgroundColor,
       ),
       child: DefaultSelectionStyle(
